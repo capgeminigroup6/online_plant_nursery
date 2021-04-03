@@ -9,25 +9,25 @@ import javax.persistence.*;
 public class Admin implements Serializable{
 	@Id
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
-	private Customer customerID;
+	@JoinColumn(name = "customerID")
+	private Customer customer;
 
-	public Admin(Customer customerID) {
+	public Admin(Customer customer) {
 		super();
-		this.customerID = customerID;
+		this.customer = customer;
 	}
 
-	public Customer getCustomerID() {
-		return customerID;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerID(Customer customerID) {
-		this.customerID = customerID;
+	public void setCustomer(Customer customer) {
+		this.customer= customer;
 	}
 
 	@Override
 	public String toString() {
-		return "Admin [customerID=" + customerID + "]";
+		return "Admin [customer=" + customer + "]";
 	}
 	
 }

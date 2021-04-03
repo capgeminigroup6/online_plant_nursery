@@ -18,8 +18,8 @@ public class Cart {
 	@Id
 	private long cartID;
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
-	private Customer customerID;
+	@JoinColumn(name = "customerid")
+	private Customer customer;
 	
 	@Column
 	@ElementCollection
