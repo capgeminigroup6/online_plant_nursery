@@ -3,10 +3,9 @@ package com.cg.online_plant_nursery.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="decor")
+@Table(name="GardenDecor")
 public class GardenDecor {
 @Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
 private int id;
 @Column
 private String name;
@@ -17,14 +16,14 @@ private double price;
 @Column
 private String image;
 
-public GardenDecor(int id, String name,String type, double price, String image) {
-id = id;
-name =name;
-type=type;
-price = price;
-image=image;
+public GardenDecor(int id, String name, String type, double price, String image) {
+	super();
+	this.id = id;
+	this.name = name;
+	this.type = type;
+	this.price = price;
+	this.image = image;
 }
-
 public int getId() {
 	return id;
 }
@@ -55,4 +54,10 @@ public String getImage() {
 public void setImage(String image) {
 	this.image = image;
 }
+@Override
+public String toString() {
+	return "GardenDecor [id=" + id + ", name=" + name + ", type=" + type + ", price=" + price + ", image=" + image
+			+ "]";
+}
+
 }

@@ -11,7 +11,6 @@ import javax.persistence.Table;
 @Table(name = "Customer")
 public class Customer {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
 	@Column
@@ -24,4 +23,55 @@ public class Customer {
 	private int contactnumber;
 	@Column
 	private double totalamount;
+	public Customer(long id, String name, String email, String password, int contactnumber, double totalamount) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.contactnumber = contactnumber;
+		this.totalamount = totalamount;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public int getContactnumber() {
+		return contactnumber;
+	}
+	public void setContactnumber(int contactnumber) {
+		this.contactnumber = contactnumber;
+	}
+	public double getTotalamount() {
+		return totalamount;
+	}
+	public void setTotalamount(double totalamount) {
+		this.totalamount = totalamount;
+	}
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
+				+ ", contactnumber=" + contactnumber + ", totalamount=" + totalamount + "]";
+	}
+	
 }

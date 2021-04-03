@@ -6,9 +6,8 @@ import javax.persistence.*;
 	@Table(name="plant")
 	public class Plant {
 		@Id
-		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		private int Id;
-		@Column(length=40)
+		@Column
 		private String Name;
 		@Column
 		private String Type;
@@ -18,6 +17,7 @@ import javax.persistence.*;
 		private String Description;
 		@Column
 		private String Image;
+		
 		public Plant(int id, String name, String type, double price, String description, String image) {
 			super();
 			Id = id;
@@ -62,6 +62,11 @@ import javax.persistence.*;
 		}
 		public void setImage(String image) {
 			Image = image;
+		}
+		@Override
+		public String toString() {
+			return "Plant [Id=" + Id + ", Name=" + Name + ", Type=" + Type + ", Price=" + Price + ", Description="
+					+ Description + ", Image=" + Image + "]";
 		}
 		
 	}

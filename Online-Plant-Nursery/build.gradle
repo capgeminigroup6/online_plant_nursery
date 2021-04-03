@@ -22,11 +22,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compile 'org.apache.tomcat.embed:tomcat-embed-jasper','javax.servlet:jstl'
 	compileOnly 'org.projectlombok:lombok'
+	implementation group : 'org.postgresql', name:'postgresql',version : '42.2.18'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testCompileOnly 'junit:junit:4.12' 
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.3.1'
 }
 
 test {

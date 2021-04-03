@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Table(name="seed")
 public class Seed {
 @Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
 private int id;
 @Column
 private String name;
@@ -19,16 +18,16 @@ private String description;
 @Column 
 private String image;
 
-
 public Seed(int id, String name, double price, int seedsPerPacket, String description, String image) {
-
-id = id;
-name =name;
-price = price;
-seedsPerPacket=seedsPerPacket;
-description=description;
-image=image;
+	super();
+	this.id = id;
+	this.name = name;
+	this.price = price;
+	this.seedsPerPacket = seedsPerPacket;
+	this.description = description;
+	this.image = image;
 }
+
 public int getId() {
 	return id;
 }
@@ -65,4 +64,11 @@ public String getImage() {
 public void setImage(String image) {
 	this.image = image;
 }
+
+@Override
+public String toString() {
+	return "Seed [id=" + id + ", name=" + name + ", price=" + price + ", seedsPerPacket=" + seedsPerPacket
+			+ ", description=" + description + ", image=" + image + "]";
+}
+
 }
