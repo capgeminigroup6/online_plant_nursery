@@ -1,7 +1,8 @@
 package com.cg.online_plant_nursery.entity;
 
-public class Plant {
-	@Entity
+import javax.persistence.*;
+
+@Entity
 	@Table(name="plant")
 	public class Plant {
 		@Id
@@ -65,4 +66,3 @@ public class Plant {
 		
 	}
 
-}
