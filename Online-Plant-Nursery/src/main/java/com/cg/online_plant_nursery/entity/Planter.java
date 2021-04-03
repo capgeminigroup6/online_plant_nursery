@@ -9,7 +9,7 @@ public class Planter {
 		private int Id;
 		@Column
 		private String Name;
-		@Column
+		@Column	
 		private String Type;
 		@Column
 		private double Price;
