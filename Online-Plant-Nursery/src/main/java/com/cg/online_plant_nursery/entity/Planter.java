@@ -1,7 +1,8 @@
 package com.cg.online_plant_nursery.entity;
 
-public class Planter {
-	@Entity
+import javax.persistence.*;
+
+@Entity
 	@Table(name="planter")
 	public class Planter {
 		@Id
@@ -52,10 +53,5 @@ public class Planter {
 		}
 		public void setImage(String image) {
 			Image = image;
-		}
-		
-		
-		
-
-
-}
+		}	
+	}
