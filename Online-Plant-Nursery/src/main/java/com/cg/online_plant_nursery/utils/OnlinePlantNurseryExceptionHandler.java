@@ -27,4 +27,5 @@ public class OnlinePlantNurseryExceptionHandler {
 	public ResponseEntity<Object> exception(ListIsEmptyException lempex){
 		return new ResponseEntity<Object>("Table is empty...", HttpStatus.NOT_FOUND);
 	}
+	
 }
