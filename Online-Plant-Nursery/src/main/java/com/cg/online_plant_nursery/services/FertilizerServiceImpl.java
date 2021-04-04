@@ -10,14 +10,15 @@ import com.cg.online_plant_nursery.entity.Fertilizer;
 
 @Service
 public class FertilizerServiceImpl implements IFertilizerService{
-@Autowired
-FertilizerDAO dao;
 
-@Override
-public void addFertilizer(Fertilizer fertilizer) {
-dao.save(fertilizer);
+	@Autowired
+	FertilizerDAO dao;
 
-}
+	@Override
+	public void addFertilizer(Fertilizer fertilizer) {
+		dao.save(fertilizer);
+
+	}
 
 @Override
 public List<Fertilizer> getAllFertilizers() {
