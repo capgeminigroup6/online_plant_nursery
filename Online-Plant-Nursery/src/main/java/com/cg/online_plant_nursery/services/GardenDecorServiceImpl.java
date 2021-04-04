@@ -37,8 +37,9 @@ public class GardenDecorServiceImpl implements IGardenDecorService{
 	public void updateDecor(int DecorId, GardenDecor decor) {
 		if(dao.existsById(DecorId)) {
 			GardenDecor decor1=dao.findById(DecorId).get();
+			decor1.setId(decor.getId());
 	    	decor1.setName(decor.getName());
-	    	decor1.setId(decor.getId());
+	    	
 	    	decor1.setType(decor.getType());
 	    	decor1.setPrice(decor.getPrice());
 	    	decor1.setImage(decor.getImage());
