@@ -9,7 +9,7 @@ import com.cg.online_plant_nursery.dao.GardenDecorDAO;
 import com.cg.online_plant_nursery.entity.GardenDecor;
 
 //@Service
-//public class GardenDecorService {
+//public class GardenDecorServiceImpl implements IGardenDecorService{
 //	@Autowired
 //	GardenDecorDAO dao;
 //	
