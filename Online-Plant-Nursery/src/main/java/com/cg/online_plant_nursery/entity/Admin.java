@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Admin implements Serializable{
 	@Id
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customerID")
+	@JoinColumn(name = "adminID")
 	private Customer customer;
 
 	public Admin(Customer customer) {
@@ -22,12 +22,14 @@ public class Admin implements Serializable{
 	}
 
 	public void setCustomer(Customer customer) {
-		this.customer= customer;
+		this.customer = customer;
 	}
 
 	@Override
 	public String toString() {
 		return "Admin [customer=" + customer + "]";
 	}
+
+	
 	
 }
