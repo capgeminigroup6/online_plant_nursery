@@ -10,5 +10,5 @@ public interface IPlanterService {
 	public void removePlanter(int PlanterId);
 	public void updatePlanter(int PlanterId, Planter planter);
 	public Planter getPlanterById(int PlanterId);
-	
+
 }

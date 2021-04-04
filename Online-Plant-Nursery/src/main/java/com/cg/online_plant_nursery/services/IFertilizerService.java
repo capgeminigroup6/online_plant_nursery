@@ -6,7 +6,6 @@ import com.cg.online_plant_nursery.entity.Fertilizer;
 
 public interface IFertilizerService {
 
-
 	public void addFertilizer(Fertilizer fertilizer);
 	public List<Fertilizer> getAllFertilizers();
 	public void removeFertilizer(int FertilizerId);

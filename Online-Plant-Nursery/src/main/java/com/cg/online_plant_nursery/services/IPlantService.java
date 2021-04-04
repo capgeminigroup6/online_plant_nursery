@@ -10,5 +10,5 @@ public interface IPlantService {
 	public void removePlant(int PlantId);
 	public void updatePlant(int PlantId, Plant plant);
 	public Plant getPlantById(int PlantId);
-	
+
 }
