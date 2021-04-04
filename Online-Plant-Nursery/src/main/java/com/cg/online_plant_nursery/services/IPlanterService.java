@@ -5,10 +5,11 @@ import java.util.List;
 import com.cg.online_plant_nursery.entity.Planter;
 
 public interface IPlanterService {
-	public void addPlanter(Planter planter);
-	public List<Planter> getAllPlanters();
-	public void removePlanter(int PlanterId);
-	public void updatePlanter(int PlanterId, Planter planter);
-	public Planter getPlanterById(int PlanterId);
+	public void addPlant(Plant plant)throws DuplicateException ;
+	public List<Plant> getAllPlants()throws ListIsEmptyException;
+	public void removePlant(int PlantId)throws IDNotFoundException;
+	public void updatePlant(int PlantId, Plant plant)throws IDNotFoundException;
+	public Plant getPlantById(int PlantId)throws IDNotFoundException;
+	
 
 }

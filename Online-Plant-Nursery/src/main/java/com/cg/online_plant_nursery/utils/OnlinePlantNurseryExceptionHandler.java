@@ -28,4 +28,13 @@ public class OnlinePlantNurseryExceptionHandler {
 		return new ResponseEntity<Object>("Table is empty...", HttpStatus.NOT_FOUND);
 	}
 	
+	@ExceptionHandler(value = IDNotFoundException.class)
+	public ResponseEntity<Object> exception(IDNotFoundException idnfex){
+		return new ResponseEntity<Object>("Id not found...", HttpStatus.NOT_FOUND);
+	}
+	@ExceptionHandler(value = DuplicateException.class)
+	public ResponseEntity<Object> exception(DuplicateException dupex){
+		return new ResponseEntity<Object>("Order has been repeated...",HttpStatus.NOT_ACCEPTABLE);
+	}
+	
 }
