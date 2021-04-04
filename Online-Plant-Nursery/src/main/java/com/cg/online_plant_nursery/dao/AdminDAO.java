@@ -1,5 +1,11 @@
 package com.cg.online_plant_nursery.dao;
 
-public interface AdminDAO {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.cg.online_plant_nursery.entity.Admin;
+
+@Repository
+public interface AdminDAO extends JpaRepository<Admin, Integer>{
 
 }

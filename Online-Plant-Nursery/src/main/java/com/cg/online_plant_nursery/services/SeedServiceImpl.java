@@ -9,7 +9,7 @@ import com.cg.online_plant_nursery.dao.SeedDAO;
 import com.cg.online_plant_nursery.entity.Seed;
 
 @Service
-public class SeedService {
+public class SeedServiceImpl {
 	@Autowired
 	SeedDAO dao;
 	public void addSeed(Seed seed) {
