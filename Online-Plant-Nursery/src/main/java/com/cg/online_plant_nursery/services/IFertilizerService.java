@@ -1,5 +1,9 @@
 package com.cg.online_plant_nursery.services;
 
+import java.util.List;
+
+import com.cg.online_plant_nursery.entity.Fertilizer;
+
 public interface IFertilizerService {
 
 	public Fertilizer addFertilizer(Fertilizer fertilizer);
