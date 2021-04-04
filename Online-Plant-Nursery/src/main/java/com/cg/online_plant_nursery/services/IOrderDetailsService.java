@@ -3,9 +3,9 @@ package com.cg.online_plant_nursery.services;
 import com.cg.online_plant_nursery.entity.OrderDetails;
 
 public interface IOrderDetailsService {
-	public void addTransaction(OrderDetails OrderDetails);
-	public void updateTransaction(long TransactionId, OrderDetails OrderDetails);
-	public void deleteTransaction(long TransactionId);
-	public void getAllTransaction();
-	public void getTransactionById(long TransactionId);
+	public void addOrderDetails(OrderDetails OrderDetails);
+	public void updateOrderDetails(long OrderId, OrderDetails OrderDetails);
+	public void deleteOrderDetails(long OrderId);
+	public void getAllOrderDetails();
+	public void getOrderDetailsById(long OrderId);
 }
