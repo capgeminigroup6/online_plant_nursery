@@ -23,6 +23,8 @@ public class Customer {
 	private int contactnumber;
 	@Column
 	private double totalamount;
+	public Customer() {
+	}
 	public Customer(long id, String name, String email, String password, int contactnumber, double totalamount) {
 		super();
 		this.id = id;

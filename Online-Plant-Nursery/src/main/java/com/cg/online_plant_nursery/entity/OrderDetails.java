@@ -18,6 +18,8 @@ public class OrderDetails {
 	private double Amount;
 	@Column
 	private Date date;
+	public OrderDetails() {
+	}
 	public OrderDetails(long orderId, Customer customer, String paymentOption, double amount, Date date) {
 		super();
 		OrderId = orderId;

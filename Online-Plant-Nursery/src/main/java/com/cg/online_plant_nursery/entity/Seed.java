@@ -17,7 +17,8 @@ private int seedsPerPacket;
 private String description;
 @Column 
 private String image;
-
+public Seed() {
+}
 public Seed(int id, String name, double price, int seedsPerPacket, String description, String image) {
 	super();
 	this.id = id;

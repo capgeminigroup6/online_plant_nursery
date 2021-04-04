@@ -15,7 +15,8 @@ private String type;
 private double price;
 @Column
 private String image;
-
+public GardenDecor() {
+}
 public GardenDecor(int id, String name, String type, double price, String image) {
 	super();
 	this.id = id;

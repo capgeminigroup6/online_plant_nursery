@@ -12,6 +12,8 @@ public class Admin implements Serializable{
 	@JoinColumn(name = "adminID")
 	private Customer customer;
 
+	public Admin() {
+	}
 	public Admin(Customer customer) {
 		super();
 		this.customer = customer;
@@ -28,8 +30,5 @@ public class Admin implements Serializable{
 	@Override
 	public String toString() {
 		return "Admin [customer=" + customer + "]";
-	}
-
-	
-	
+	}	
 }

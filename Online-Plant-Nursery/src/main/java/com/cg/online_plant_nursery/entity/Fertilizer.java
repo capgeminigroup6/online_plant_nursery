@@ -17,6 +17,8 @@ import javax.persistence.*;
 		private String Description;
 		@Column
 		private String Image;
+		public Fertilizer() {
+		}
 		public Fertilizer(int id, String name, String type, double price, String description, String image) {
 			super();
 			Id = id;

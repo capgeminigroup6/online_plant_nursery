@@ -30,7 +30,6 @@ public class GardenDecorServiceImpl implements IGardenDecorService{
 		if(dao.existsById(DecorId)) {
 			dao.deleteById(DecorId);
 		}
-		
 	}
 
 	@Override
@@ -45,16 +44,12 @@ public class GardenDecorServiceImpl implements IGardenDecorService{
 	    	decor1.setImage(decor.getImage());
 	    	dao.save(decor1);
 		}
-		
 	}
 
 	@Override
 	public GardenDecor getDecorById(int DecorId) {
 		return dao.getDecorById(DecorId);
 	}
-	
-	
-	
 	
 }
 

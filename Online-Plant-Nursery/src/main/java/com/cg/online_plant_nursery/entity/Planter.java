@@ -15,6 +15,8 @@ import javax.persistence.*;
 		private double Price;
 		@Column
 		private String Image;
+		public Planter() {
+		}
 		public Planter(int id, String name, String type, double price, String image) {
 			super();
 			Id = id;
