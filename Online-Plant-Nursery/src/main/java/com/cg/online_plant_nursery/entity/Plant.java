@@ -6,7 +6,8 @@ import javax.persistence.*;
 	@Table(name="plant")
 	public class Plant {
 		@Id
-		private int Id;
+		@Column(name = "id")
+		private long Id;
 		@Column
 		private String Name;
 		@Column
@@ -19,7 +20,7 @@ import javax.persistence.*;
 		private String Image;
 		public Plant() {
 		}
-		public Plant(int id, String name, String type, double price, String description, String image) {
+		public Plant(long id, String name, String type, double price, String description, String image) {
 			super();
 			Id = id;
 			Name = name;
@@ -28,10 +29,10 @@ import javax.persistence.*;
 			Description = description;
 			Image = image;
 		}
-		public int getId() {
+		public long getId() {
 			return Id;
 		}
-		public void setId(int id) {
+		public void setId(long id) {
 			Id = id;
 		}
 		public String getName() {

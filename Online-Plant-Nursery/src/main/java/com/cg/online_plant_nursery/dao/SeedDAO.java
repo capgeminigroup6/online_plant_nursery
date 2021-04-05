@@ -10,5 +10,5 @@ import com.cg.online_plant_nursery.entity.Seed;
 public interface SeedDAO extends JpaRepository<Seed,Integer> {
 
 	@Query(value = "from Seed seed where seed.id=?1")
-	public Seed getSeedById(int id);
+	public Seed getSeedById(long id);
 }

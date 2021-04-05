@@ -1,11 +1,8 @@
 package com.cg.online_plant_nursery.entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,95 +16,180 @@ import javax.persistence.Table;
 public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long cartID;
+	private long cartid;
+	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customerid")
+	@JoinColumn(name = "customerid",referencedColumnName = "id")
 	private Customer customer;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "plantid",referencedColumnName = "id")
+	private Plant plant;
 	@Column
-	@ElementCollection
-	private List<Plant> plantList = new ArrayList<>();
+	private Integer plant_quantity;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "seedid",referencedColumnName = "id")
+	private Seed seed;
 	@Column
-	@ElementCollection
-	private List<Seed> seedList = new ArrayList<>();
+	private Integer seed_quantity;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fertilizerid",referencedColumnName = "id")
+	private Fertilizer fertilizer;
 	@Column
-	@ElementCollection
-	private List<Planter> planterList = new ArrayList<>();
+	private Integer fertlizer_quantity;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "planterid",referencedColumnName = "id")
+	private Planter planter;
 	@Column
-	@ElementCollection
-	private List<GardenDecor> gardenDecorList = new ArrayList<>();
+	private Integer planter_quantity;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "gardendecorid",referencedColumnName = "id")
+	private GardenDecor gardendecor;
 	@Column
-	@ElementCollection
-	private List<Fertilizer> fertilizerList = new ArrayList<>();
+	private Integer garden_decor_quantity;
+	
 	@Column
-	private double TotalAmount;
+	private double totalamount;
+	
 	public Cart() {
 	}
-	public Cart(long cartID, Customer customer, List<Plant> plantList, List<Seed> seedList, List<Planter> planterList,
-			List<GardenDecor> gardenDecorList, List<Fertilizer> fertilizerList, double totalAmount) {
+
+	public Cart(long cartid, Customer customer, Plant plant, Integer plant_quantity, Seed seed, Integer seed_quantity,
+			Fertilizer fertilizer, Integer fertlizer_quantity, Planter planter, Integer planter_quantity,
+			GardenDecor gardendecor, Integer garden_decor_quantity, double totalamount) {
 		super();
-		this.cartID = cartID;
+		this.cartid = cartid;
 		this.customer = customer;
-		this.plantList = plantList;
-		this.seedList = seedList;
-		this.planterList = planterList;
-		this.gardenDecorList = gardenDecorList;
-		this.fertilizerList = fertilizerList;
-		TotalAmount = totalAmount;
+		this.plant = plant;
+		this.plant_quantity = plant_quantity;
+		this.seed = seed;
+		this.seed_quantity = seed_quantity;
+		this.fertilizer = fertilizer;
+		this.fertlizer_quantity = fertlizer_quantity;
+		this.planter = planter;
+		this.planter_quantity = planter_quantity;
+		this.gardendecor = gardendecor;
+		this.garden_decor_quantity = garden_decor_quantity;
+		this.totalamount = totalamount;
 	}
-	public long getCartID() {
-		return cartID;
+
+	public long getCartid() {
+		return cartid;
 	}
-	public void setCartID(long cartID) {
-		this.cartID = cartID;
+
+	public void setCartid(long cartid) {
+		this.cartid = cartid;
 	}
+
 	public Customer getCustomer() {
 		return customer;
 	}
+
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public List<Plant> getPlantList() {
-		return plantList;
+
+	public Plant getPlant() {
+		return plant;
 	}
-	public void setPlantList(List<Plant> plantList) {
-		this.plantList = plantList;
+
+	public void setPlant(Plant plant) {
+		this.plant = plant;
 	}
-	public List<Seed> getSeedList() {
-		return seedList;
+
+	public Integer getPlant_quantity() {
+		return plant_quantity;
 	}
-	public void setSeedList(List<Seed> seedList) {
-		this.seedList = seedList;
+
+	public void setPlant_quantity(Integer plant_quantity) {
+		this.plant_quantity = plant_quantity;
 	}
-	public List<Planter> getPlanterList() {
-		return planterList;
+
+	public Seed getSeed() {
+		return seed;
 	}
-	public void setPlanterList(List<Planter> planterList) {
-		this.planterList = planterList;
+
+	public void setSeed(Seed seed) {
+		this.seed = seed;
 	}
-	public List<GardenDecor> getGardenDecorList() {
-		return gardenDecorList;
+
+	public Integer getSeed_quantity() {
+		return seed_quantity;
 	}
-	public void setGardenDecorList(List<GardenDecor> gardenDecorList) {
-		this.gardenDecorList = gardenDecorList;
+
+	public void setSeed_quantity(Integer seed_quantity) {
+		this.seed_quantity = seed_quantity;
 	}
-	public List<Fertilizer> getFertilizerList() {
-		return fertilizerList;
+
+	public Fertilizer getFertilizer() {
+		return fertilizer;
 	}
-	public void setFertilizerList(List<Fertilizer> fertilizerList) {
-		this.fertilizerList = fertilizerList;
+
+	public void setFertilizer(Fertilizer fertilizer) {
+		this.fertilizer = fertilizer;
 	}
-	public double getTotalAmount() {
-		return TotalAmount;
+
+	public Integer getFertlizer_quantity() {
+		return fertlizer_quantity;
 	}
-	public void setTotalAmount(double totalAmount) {
-		TotalAmount = totalAmount;
+
+	public void setFertlizer_quantity(Integer fertlizer_quantity) {
+		this.fertlizer_quantity = fertlizer_quantity;
 	}
+
+	public Planter getPlanter() {
+		return planter;
+	}
+
+	public void setPlanter(Planter planter) {
+		this.planter = planter;
+	}
+
+	public Integer getPlanter_quantity() {
+		return planter_quantity;
+	}
+
+	public void setPlanter_quantity(Integer planter_quantity) {
+		this.planter_quantity = planter_quantity;
+	}
+
+	public GardenDecor getGardendecor() {
+		return gardendecor;
+	}
+
+	public void setGardendecor(GardenDecor gardendecor) {
+		this.gardendecor = gardendecor;
+	}
+
+	public Integer getGarden_decor_quantity() {
+		return garden_decor_quantity;
+	}
+
+	public void setGarden_decor_quantity(Integer garden_decor_quantity) {
+		this.garden_decor_quantity = garden_decor_quantity;
+	}
+
+	public double getTotalamount() {
+		return totalamount;
+	}
+
+	public void setTotalamount(double totalamount) {
+		this.totalamount = totalamount;
+	}
+
 	@Override
 	public String toString() {
-		return "Cart [cartID=" + cartID + ", customer=" + customer + ", plantList=" + plantList + ", seedList="
-				+ seedList + ", planterList=" + planterList + ", gardenDecorList=" + gardenDecorList
-				+ ", fertilizerList=" + fertilizerList + ", TotalAmount=" + TotalAmount + "]";
+		return "Cart [cartid=" + cartid + ", customer=" + customer + ", plant=" + plant + ", plant_quantity="
+				+ plant_quantity + ", seed=" + seed + ", seed_quantity=" + seed_quantity + ", fertilizer=" + fertilizer
+				+ ", fertlizer_quantity=" + fertlizer_quantity + ", planter=" + planter + ", planter_quantity="
+				+ planter_quantity + ", gardendecor=" + gardendecor + ", garden_decor_quantity=" + garden_decor_quantity
+				+ ", totalamount=" + totalamount + "]";
 	}
+
+	
 	
 }

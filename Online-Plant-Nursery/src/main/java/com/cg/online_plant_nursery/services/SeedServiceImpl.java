@@ -55,7 +55,7 @@ public class SeedServiceImpl implements ISeedService {
 				Seed seed1=dao.findById(Id).get();
 			      seed1.setId(seed.getId());
 			      seed1.setName(seed.getName());
-			      seed1.setSeedsPerPacket(seed.getSeedsPerPacket());
+			      seed1.setSeedsperpacket(seed.getSeedsperpacket());
 			      seed1.setPrice(seed.getPrice());
 			      seed1.setDescription(seed.getDescription());
 			      seed1.setImage(seed.getImage());

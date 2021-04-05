@@ -10,5 +10,5 @@ import com.cg.online_plant_nursery.entity.GardenDecor;
 public interface GardenDecorDAO extends JpaRepository<GardenDecor,Integer> {
 
 	@Query(value = "from GardenDecor decor where decor.id=?1")
-	public GardenDecor getDecorById(int id);
+	public GardenDecor getDecorById(long id);
 }

@@ -6,29 +6,29 @@ import javax.persistence.*;
 @Table(name="seed")
 public class Seed {
 @Id
+@Column(name = "id")
 private int id;
 @Column
 private String name;
 @Column
 private double price;
 @Column
-private int seedsPerPacket;
+private int seedsperpacket;
 @Column 
 private String description;
 @Column 
 private String image;
 public Seed() {
 }
-public Seed(int id, String name, double price, int seedsPerPacket, String description, String image) {
+public Seed(int id, String name, double price, int seedsperpacket, String description, String image) {
 	super();
 	this.id = id;
 	this.name = name;
 	this.price = price;
-	this.seedsPerPacket = seedsPerPacket;
+	this.seedsperpacket = seedsperpacket;
 	this.description = description;
 	this.image = image;
 }
-
 public int getId() {
 	return id;
 }
@@ -47,11 +47,11 @@ public double getPrice() {
 public void setPrice(double price) {
 	this.price = price;
 }
-public int getSeedsPerPacket() {
-	return seedsPerPacket;
+public int getSeedsperpacket() {
+	return seedsperpacket;
 }
-public void setSeedsPerPacket(int seedsPerPacket) {
-	this.seedsPerPacket = seedsPerPacket;
+public void setSeedsperpacket(int seedsperpacket) {
+	this.seedsperpacket = seedsperpacket;
 }
 public String getDescription() {
 	return description;
@@ -65,11 +65,12 @@ public String getImage() {
 public void setImage(String image) {
 	this.image = image;
 }
-
 @Override
 public String toString() {
-	return "Seed [id=" + id + ", name=" + name + ", price=" + price + ", seedsPerPacket=" + seedsPerPacket
+	return "Seed [id=" + id + ", name=" + name + ", price=" + price + ", seedsperpacket=" + seedsperpacket
 			+ ", description=" + description + ", image=" + image + "]";
 }
+
+
 
 }

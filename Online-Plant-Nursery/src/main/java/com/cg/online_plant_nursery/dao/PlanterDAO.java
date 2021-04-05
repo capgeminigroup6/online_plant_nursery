@@ -10,6 +10,6 @@ import com.cg.online_plant_nursery.entity.Planter;
 public interface PlanterDAO extends JpaRepository<Planter,Integer>{
 	
 	 @Query(value = "from Planter planter where planter.id=?1")
-	 public Planter getPlanterById(int id);
+	 public Planter getPlanterById(long id);
 	
 }

@@ -6,6 +6,7 @@ import javax.persistence.*;
 	@Table(name="planter")
 	public class Planter {
 		@Id
+		@Column(name = "id")
 		private int Id;
 		@Column
 		private String Name;
