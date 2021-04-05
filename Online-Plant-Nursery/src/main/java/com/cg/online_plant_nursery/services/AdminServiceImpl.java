@@ -5,9 +5,8 @@ package com.cg.online_plant_nursery.services;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 //
-//import com.cg.online_plant_nursery.dao.AdminDAO;
 //import com.cg.online_plant_nursery.entity.Admin;
-
+//
 //@Service
 //public class AdminServiceImpl {
 //@Autowired
