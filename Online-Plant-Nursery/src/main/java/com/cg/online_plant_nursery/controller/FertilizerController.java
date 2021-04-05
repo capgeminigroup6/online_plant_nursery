@@ -49,3 +49,6 @@ public class FertilizerController {
 	  return new ResponseEntity<String>("updated",HttpStatus.OK);
 	 }
 }
+
+
+
