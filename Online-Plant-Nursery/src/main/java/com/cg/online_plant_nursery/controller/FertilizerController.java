@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.online_plant_nursery.entity.Fertilizer;
 import com.cg.online_plant_nursery.services.FertilizerServiceImpl;
 
-@RestController
+@RestController  
 @RequestMapping("/Fertilizer")
 public class FertilizerController {
 	@Autowired
