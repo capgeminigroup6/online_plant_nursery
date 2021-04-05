@@ -23,8 +23,6 @@ public class PlanterServiceImpl implements IPlanterService{
 			}
 			dao.save(planter);
 				}
-		
-		
 	
 	@Override
 	public List<Planter> getAllPlanters() throws ListIsEmptyException {

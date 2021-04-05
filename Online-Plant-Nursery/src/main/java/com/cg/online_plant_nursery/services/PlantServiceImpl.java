@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.cg.online_plant_nursery.dao.PlantDAO;
 import com.cg.online_plant_nursery.entity.Plant;
 
-@Service
+@Service    
 public class PlantServiceImpl  implements IPlantService{
 	@Autowired
 	PlantDAO dao;

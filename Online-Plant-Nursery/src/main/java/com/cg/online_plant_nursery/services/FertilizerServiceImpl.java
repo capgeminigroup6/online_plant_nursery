@@ -24,8 +24,6 @@ public class FertilizerServiceImpl implements IFertilizerService{
 		}
 		dao.save(fertilizer);
 			}
-		
-	
 
 	@Override
 	public List<Fertilizer> getAllFertilizers() throws ListIsEmptyException {
