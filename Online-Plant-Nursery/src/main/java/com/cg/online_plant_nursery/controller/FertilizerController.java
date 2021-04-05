@@ -21,7 +21,7 @@ import com.cg.online_plant_nursery.services.FertilizerServiceImpl;
 public class FertilizerController {
 	@Autowired
 	FertilizerServiceImpl service;
-	
+
 	@PostMapping("/add")
 	public ResponseEntity<String> addFertilizer(@RequestBody Fertilizer fertilizer){
 		service.addFertilizer(fertilizer);
