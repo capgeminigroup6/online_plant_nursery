@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.online_plant_nursery.entity.Customer;
+import com.cg.online_plant_nursery.services.CustomerServiceImpl;
 import com.cg.online_plant_nursery.services.ICustomerService;
 
 @RestController
 @RequestMapping("/Customer")
 public class CustomerController {
 @Autowired
-ICustomerService service;
+CustomerServiceImpl service;
 
 @PostMapping("/addcustomer")
 public ResponseEntity<String> addcustomer(@RequestBody Customer customer){

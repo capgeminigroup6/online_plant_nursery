@@ -11,6 +11,6 @@ public interface IGardenDecorService {
 	public void addDecor(GardenDecor decor)throws DuplicateException ;
 	public List<GardenDecor> getAllDecors()throws ListIsEmptyException;
 	public void removeDecor(int DecorId)throws IDNotFoundException;
-	public void updateDecor(int DecorId, GardenDecor decor)throws IDNotFoundException;
+	public void updateGardenDecor(int DecorId, GardenDecor decor)throws IDNotFoundException;
 	public GardenDecor getDecorById(int DecorId)throws IDNotFoundException;
 }

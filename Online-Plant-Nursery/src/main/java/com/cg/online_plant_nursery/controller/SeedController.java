@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.online_plant_nursery.entity.Seed;
 import com.cg.online_plant_nursery.services.ISeedService;
+import com.cg.online_plant_nursery.services.SeedServiceImpl;
 
 @RestController
 @RequestMapping("/seed")
 public class SeedController {
 @Autowired
-ISeedService service;
+SeedServiceImpl service;
 
 @PostMapping("/addseed")
 public ResponseEntity<String> addSeed(@RequestBody Seed seed){
@@ -31,7 +32,7 @@ public ResponseEntity<String> addSeed(@RequestBody Seed seed){
 
 @GetMapping
 public ResponseEntity<List<Seed>> getAllSeeds(){
- List<Seed> seedList=service.getAllSeeds();
+ List<Seed> seedList=service.getAllSeed();
  return new ResponseEntity<List<Seed>>(seedList,HttpStatus.OK);
 }
 

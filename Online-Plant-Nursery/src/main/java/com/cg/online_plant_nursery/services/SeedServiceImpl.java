@@ -1,5 +1,6 @@
 package com.cg.online_plant_nursery.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,39 +8,72 @@ import org.springframework.stereotype.Service;
 
 import com.cg.online_plant_nursery.dao.SeedDAO;
 import com.cg.online_plant_nursery.entity.Seed;
+import com.cg.online_plant_nursery.utils.DuplicateException;
+import com.cg.online_plant_nursery.utils.IDNotFoundException;
+import com.cg.online_plant_nursery.utils.ListIsEmptyException;
 
 @Service
-public class SeedServiceImpl {
+public class SeedServiceImpl implements ISeedService {
 	@Autowired
 	SeedDAO dao;
-	public void addSeed(Seed seed) {
+	List<Seed> seedList = new ArrayList<>();
+	@Override
+	public void addSeed(Seed seed) throws DuplicateException {
+		seedList = dao.findAll();
+		for(Seed sd: seedList) {
+			if(sd.getId() ==seed.getId()){
+				throw new DuplicateException();
+			}
+		}
 		dao.save(seed);
-	}
-	public List<Seed> getAllSeed(){
-		List<Seed> seedList=dao.findAll();
-		return seedList;
-	}
-	public Seed getSeedById(int SeedId) {
-		return dao.getSeedById(SeedId);
-	}
+			}
 	
-	public void removeSeed(int SeedId) {
-		if(dao.existsById(SeedId)) {
-			dao.deleteById(SeedId);
-		}
-
+	@Override
+	public List<Seed> getAllSeeds() throws ListIsEmptyException {
+		 seedList=dao.findAll();
+		 if(seedList == null) {
+				throw new ListIsEmptyException();
+			}
+			return seedList;
 	}
-	public void updateSeed(int SeedId,Seed seed) {
-		if(dao.existsById(SeedId)) {
-			Seed seed1=dao.findById(SeedId).get();
-			seed1.setName(seed.getName());
-			seed1.setId(seed.getId());
-			seed1.setPrice(seed.getPrice());
-			seed1.setSeedsPerPacket(seed.getSeedsPerPacket());
-			seed1.setDescription(seed.getDescription());
-			seed1.setImage(seed.getImage());
-			dao.save(seed);
+	@Override
+	public void removeSeed(int Id) throws IDNotFoundException{
+		seedList = dao.findAll();
+		for(Seed sd: seedList) {
+			if(sd.getId()==Id) {
+				 dao.deleteById(Id);
+				 return;
+			}
 		}
-	
+		throw new IDNotFoundException();
+			 		}
+		@Override
+	public void updateSeed(int Id, Seed seed)  throws IDNotFoundException{
+		seedList = dao.findAll();
+		for(Seed sd: seedList) {
+			if(sd.getId()==Id) {
+				Seed seed1=dao.findById(Id).get();
+			      seed1.setId(seed.getId());
+			      seed1.setName(seed.getName());
+			      seed1.setSeedsPerPacket(seed.getSeedsPerPacket());
+			      seed1.setPrice(seed.getPrice());
+			      seed1.setDescription(seed.getDescription());
+			      seed1.setImage(seed.getImage());
+			      dao.save(seed1);
+			      return;
+					}
+		}
+		 throw new IDNotFoundException();
+		}
+		@Override
+	public Seed getSeedById(int Id) throws IDNotFoundException {
+		seedList = dao.findAll();
+		for(Seed sd: seedList) {
+			if(sd.getId()== Id) {
+				return sd;
+			}
+		}
+		throw new IDNotFoundException();
 	}
 }
+
