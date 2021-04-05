@@ -38,4 +38,14 @@ public class FertilizerController {
 		service.removeFertilizer(fertilizerID);
 		return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 	}
+	@GetMapping("/getbyid")
+	 public ResponseEntity<Fertilizer> getFertilizerById(@RequestBody int Id){
+	 Fertilizer fertilizer=service.getFertilizerById(Id);
+	  return new ResponseEntity<Fertilizer>(fertilizer,HttpStatus.OK);
+	 }
+	 @PutMapping("/updatefertilizer/{id}")
+	 public ResponseEntity<String> updateFertilizer(@PathVariable int id,@RequestBody Fertilizer fertilizer){
+	  service.updateFertilizer(id, fertilizer);
+	  return new ResponseEntity<String>("updated",HttpStatus.OK);
+	 }
 }
