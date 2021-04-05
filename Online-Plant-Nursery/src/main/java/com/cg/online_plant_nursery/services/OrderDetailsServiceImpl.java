@@ -50,6 +50,7 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 							od.setAmount(OrderDetails.getAmount());
 							od.setCustomer(OrderDetails.getCustomer());
 							dao.save(od);
+							return;
 						}
 					}
 					throw new CustomreNotFoundException();

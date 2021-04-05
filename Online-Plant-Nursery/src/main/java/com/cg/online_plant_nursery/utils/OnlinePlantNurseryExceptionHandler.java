@@ -36,5 +36,9 @@ public class OnlinePlantNurseryExceptionHandler {
 	public ResponseEntity<Object> exception(DuplicateException dupex){
 		return new ResponseEntity<Object>("Order has been repeated...",HttpStatus.NOT_ACCEPTABLE);
 	}
+	@ExceptionHandler(value = OutOfStockException.class)
+	public ResponseEntity<Object> exception(OutOfStockException outex){
+		return new ResponseEntity<Object>("Product out of stock...",HttpStatus.NOT_FOUND);
+	}
 	
 }
