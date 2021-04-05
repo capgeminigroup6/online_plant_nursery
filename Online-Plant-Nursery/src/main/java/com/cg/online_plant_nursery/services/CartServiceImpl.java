@@ -15,7 +15,6 @@ public class CartServiceImpl implements ICartService{
 	
 	@Override
 	public void addPlantToCart(long customerID, long plantID, int quantity) {
-		// TODO Auto-generated method stub
 		
 	}
 
