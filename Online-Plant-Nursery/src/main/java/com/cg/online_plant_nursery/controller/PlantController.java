@@ -29,15 +29,15 @@ public class PlantController {
 	  return new ResponseEntity<String>("Plant Added",HttpStatus.OK);
 	 }
 	
-	 @GetMapping
+	 @GetMapping("/getAll")
 	 public ResponseEntity<List<Plant>> getAllPlants(){
 	  List<Plant> plantList=service.getAllPlants();
 	  return new ResponseEntity<List<Plant>>(plantList,HttpStatus.OK);
 	 }
 	
-	 @GetMapping("/getbyid")
-	 public ResponseEntity<Plant> getPlantById(@RequestBody int Id){
-	 Plant plant=service.getPlantById(Id);
+	 @GetMapping("/getbyid/{PlantId}")
+	 public ResponseEntity<Plant> getPlantById(@PathVariable int PlantId){
+	 Plant plant=service.getPlantById(PlantId);
 	  return new ResponseEntity<Plant>(plant,HttpStatus.OK);
 	 }
 	 
@@ -46,6 +46,7 @@ public class PlantController {
 			service.removePlant(PlantId);
 			return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 		}
+	 
 	 @PutMapping("/updateplant/{id}")
 	 public ResponseEntity<String> updatePlant(@PathVariable int id,@RequestBody Plant plant){
 	  service.updatePlant(id, plant);

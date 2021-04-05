@@ -29,7 +29,7 @@ public class PlanterController {
 	  return new ResponseEntity<String>("Planter Added",HttpStatus.OK);
 	 }
 	
-	 @GetMapping
+	 @GetMapping("/getAll")
 	 public ResponseEntity<List<Planter>> getAllPlanters(){
 	  List<Planter> planterList=service.getAllPlanters();
 	  return new ResponseEntity<List<Planter>>(planterList,HttpStatus.OK);
@@ -46,6 +46,7 @@ public class PlanterController {
 			service.removePlanter(PlanterId);
 			return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 		}
+	 
 	 @PutMapping("/updateplanter/{id}")
 	 public ResponseEntity<String> updatePlanter(@PathVariable int id,@RequestBody Planter planter){
 	  service.updatePlanter(id, planter);
