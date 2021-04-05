@@ -32,7 +32,7 @@ public ResponseEntity<String> addSeed(@RequestBody Seed seed){
 
 @GetMapping
 public ResponseEntity<List<Seed>> getAllSeeds(){
- List<Seed> seedList=service.getAllSeed();
+ List<Seed> seedList=service.getAllSeeds();
  return new ResponseEntity<List<Seed>>(seedList,HttpStatus.OK);
 }
 

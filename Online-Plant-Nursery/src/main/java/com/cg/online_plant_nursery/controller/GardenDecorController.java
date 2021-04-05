@@ -48,7 +48,7 @@ return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 }
 @PutMapping("/updategardendecor/{id}")
 public ResponseEntity<String> updateDecor(@PathVariable int id,@RequestBody GardenDecor decor){
- service.updateDecor(id, decor);
+ service.updateGardenDecor(id, decor);
  return new ResponseEntity<String>("updated",HttpStatus.OK);
 }
 }
