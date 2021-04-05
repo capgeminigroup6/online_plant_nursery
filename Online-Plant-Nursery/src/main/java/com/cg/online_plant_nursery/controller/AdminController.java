@@ -44,5 +44,4 @@ public ResponseEntity<String> removeAdmin(@PathVariable int Id){
 service.removeAdmin(Id);
 return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 }
-
 }
