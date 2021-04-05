@@ -10,48 +10,80 @@ import com.cg.online_plant_nursery.entity.Planter;
 
 @Service
 public class PlanterServiceImpl implements IPlanterService{
-@Autowired
-PlanterDAO dao;
+	@Autowired
+	PlanterDAO dao;
+  List <Planter>planterList = new ArrayList<>();
+	@Override
+	public void addPlanter(Planter planter) throws DuplicateException{
+		planterList = dao.findAll();
+		for(Planter pl: planterList) {
+				if(pl.getId() ==planter.getId()){
+					throw new DuplicateException();
+				}
+			}
+			dao.save(planter);
+				}
+		
+		
+	
+	@Override
+	public List<Planter> getAllPlanters() throws ListIsEmptyException {
+		 planterList=dao.findAll();
+		   if(planterList == null) {
+						throw new ListIsEmptyException();
+					}
+					return planterList;
+	}
 
-@Override
-public void addPlanter(Planter planter) {
-dao.save(planter);
+	
 
-}
-@Override
-public List<Planter> getAllPlanters() {
-List<Planter> planterList=dao.findAll();
- return planterList;
-}
+	@Override
+	public void removePlanter(int PlanterId) throws IDNotFoundException{
+		
+			planterList = dao.findAll();
+			for(Planter pl: planterList) {
+				if(pl.getId()==PlanterId) {
+					 dao.deleteById(PlanterId);
+					 return;
+				}
+			}
+			throw new IDNotFoundException();
+				 		}
+		
+	
 
+	@Override
+	public void updatePlanter(int PlanterId, Planter planter) throws IDNotFoundException{
+		
+			 planterList = dao.findAll();
+				for(Planter pl: planterList) {
+					if(pl.getId()==PlanterId) {
+						Planter planter1=dao.findById(PlanterId).get();
+						   planter1.setId(planter.getId());
+						      planter1.setName(planter.getName());
+						      planter1.setType(planter.getType());
+						      planter1.setPrice(planter.getPrice());
+						     
+						      planter1.setImage(planter.getImage());
+						   dao.save(planter1);
+					   return;
+							}
+				}
+				 throw new IDNotFoundException();
+	}
+	
+		
+	
 
-
-@Override
-public void removePlanter(int PlanterId) {
-if(dao.existsById(PlanterId)) {
-  dao.deleteById(PlanterId);
- }
-
-}
-
-@Override
-public void updatePlanter(int PlanterId, Planter planter) {
-if(dao.existsById(PlanterId)) {
-  Planter planter1=dao.findById(PlanterId).get();
-  planter1.setId(planter.getId());
-     planter1.setName(planter.getName());
-     planter1.setType(planter.getType());
-     planter1.setPrice(planter.getPrice());
-   
-     planter1.setImage(planter.getImage());
-  dao.save(planter1);
- }
-
-}
-
-@Override
-public Planter getPlanterById(int PlanterId) {
-return dao.getPlanterById(PlanterId);
-}
-
+	@Override
+	public Planter getPlanterById(int PlanterId)throws IDNotFoundException {
+		planterList = dao.findAll();
+		for(Planter pl: planterList) {
+			if(pl.getId()== PlanterId) {
+				return pl;
+			}
+		}
+		throw new IDNotFoundException();
+	}
+	
 }
