@@ -20,7 +20,7 @@ public class Customer {
 	@Column
 	private String password;
 	@Column
-	private int contactnumber;
+	private long contactnumber;
 	@Column
 	private double totalamount;
 	public Customer() {
@@ -58,10 +58,10 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getContactnumber() {
+	public long getContactnumber() {
 		return contactnumber;
 	}
-	public void setContactnumber(int contactnumber) {
+	public void setContactnumber(long contactnumber) {
 		this.contactnumber = contactnumber;
 	}
 	public double getTotalamount() {

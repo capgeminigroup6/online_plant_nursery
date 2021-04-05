@@ -18,8 +18,8 @@ public class CartController {
 	@Autowired
 	CartServiceImpl service;
 	
-	@PostMapping("/add/{customerID}")
-	public ResponseEntity<String> addPlantToCart(@PathVariable long customerID, @RequestParam long plantID,int quantity){
+	@PutMapping("/add")
+	public ResponseEntity<String> addPlantToCart(@RequestParam long customerID,long plantID,int quantity){
 		service.addPlantToCart(customerID, plantID, quantity);
 		return new ResponseEntity<String>("plant added...", HttpStatus.OK);
 	}

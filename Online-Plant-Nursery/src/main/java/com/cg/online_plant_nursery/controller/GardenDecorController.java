@@ -29,7 +29,7 @@ public ResponseEntity<String> addDecor(@RequestBody GardenDecor decor){
  return new ResponseEntity<String>("GardenDecor Added",HttpStatus.OK);
 }
 
-@GetMapping
+@GetMapping("/getAll")
 public ResponseEntity<List<GardenDecor>> getAllDecors(){
  List<GardenDecor> decorList=service.getAllDecors();
  return new ResponseEntity<List<GardenDecor>>(decorList,HttpStatus.OK);

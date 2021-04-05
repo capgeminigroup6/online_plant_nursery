@@ -30,7 +30,6 @@ public ResponseEntity<String> addcustomer(@RequestBody Customer customer){
  return new ResponseEntity<String>("Customer Added",HttpStatus.OK);
 }
 
-
 @GetMapping("/get")
 public ResponseEntity<List<Customer>> getAllCustomer(){
  List<Customer> customerList=service.getAllCustomer();

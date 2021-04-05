@@ -3,7 +3,6 @@ package com.cg.online_plant_nursery.services;
 import java.util.List;
 
 import com.cg.online_plant_nursery.entity.Admin;
-import com.cg.online_plant_nursery.utils.IDNotFoundException;
 
 public interface IAdminService {
 	public void addAdmin(Admin admin);

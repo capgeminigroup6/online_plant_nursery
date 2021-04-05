@@ -24,13 +24,16 @@ public class CartServiceImpl implements ICartService{
 	CustomerDAO custDao;
 	@Autowired
 	PlantDAO plantDao;
+	
 	List<Cart> CartList = new ArrayList<>();
 	List<Customer> customerList = new ArrayList<>();
 	List<Plant> plantList = new ArrayList<>();
+	
 	@Override
 	public void addPlantToCart(long customerID, long plantID, int quantity) throws IDNotFoundException,OutOfStockException {
 		CartList = dao.findAll();
 		customerList = custDao.findAll();
+		
 		for(Customer customer : customerList) {
 			if(customer.getId() == customerID) {
 				plantList = plantDao.findAll();
@@ -49,15 +52,15 @@ public class CartServiceImpl implements ICartService{
 								return;
 							}
 						}
-						for(int i=0; i<quantity; i++) {
-							plantList1.add(p);
-						}
-						Cart c = new Cart();
-						c.setCustomer(customer);
-						c.setPlantList(plantList1);
-						c.setTotalAmount(quantity*p.getPrice());
-						dao.save(c);
-						return;
+//						for(int i=0; i<quantity; i++) {
+//							plantList1.add(p);
+//						}
+//						Cart c = new Cart();
+//						c.setCustomer(customer);
+//						c.setPlantList(plantList1);
+//						c.setTotalAmount(quantity*p.getPrice());
+//						dao.save(c);
+//						return;
 					}
 				}
 				throw new OutOfStockException();

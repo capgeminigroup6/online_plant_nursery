@@ -15,28 +15,28 @@
 //
 //import com.cg.online_plant_nursery.entity.Admin;
 //import com.cg.online_plant_nursery.services.AdminServiceImpl;
-//import com.cg.online_plant_nursery.services.IAdminService;
 //
 //@RestController
-//@RequestMapping("/")
+//@RequestMapping("/admin")
 //public class AdminController {
 //@Autowired
 //AdminServiceImpl service;
 //
-//@PostMapping("/addadmin")
+//@PostMapping("/add")
 //public ResponseEntity<String> addadmin(@RequestBody Admin admin){
-// service.addAmin(admin);
+// service.addAdmin(admin);
 // return new ResponseEntity<String>("Admin Added",HttpStatus.OK);
 //}
 //
-//@GetMapping public ResponseEntity<List<Admin>> getAllAdmin(){
+//@GetMapping ("/get")
+//public ResponseEntity<List<Admin>> getAllAdmin(){
 // List<Admin> adminList=service.getAllAdmin();
 // return new ResponseEntity<List<Admin>>(adminList,HttpStatus.OK);
 //}
 //
-//@GetMapping("/getbyid")
-//public ResponseEntity<Admin> getAdminById(@RequestBody int Id){
-// Admin admin=service.getAdminById(Id);
+//@GetMapping("/getbyid/{id}")
+//public ResponseEntity<Admin> getAdminById(@PathVariable int id){
+// Admin admin=service.getAdminById(id);
 // return new ResponseEntity<Admin>(admin,HttpStatus.OK);
 //}
 //
