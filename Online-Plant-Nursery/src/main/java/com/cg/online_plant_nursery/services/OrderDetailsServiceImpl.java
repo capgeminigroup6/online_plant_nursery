@@ -12,6 +12,7 @@ import com.cg.online_plant_nursery.entity.Customer;
 import com.cg.online_plant_nursery.entity.OrderDetails;
 import com.cg.online_plant_nursery.utils.CustomreNotFoundException;
 import com.cg.online_plant_nursery.utils.DuplicateOrderException;
+import com.cg.online_plant_nursery.utils.InsufficiantBalanceException;
 import com.cg.online_plant_nursery.utils.ListIsEmptyException;
 import com.cg.online_plant_nursery.utils.OrderDetailsNotFoundException;
 
@@ -25,14 +26,24 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 	List<Customer> customerList = new ArrayList<>();
 	
 	@Override
-	public void addOrderDetails(OrderDetails OrderDetails) throws DuplicateOrderException {
+	public void addOrderDetails(OrderDetails OrderDetails) throws DuplicateOrderException,CustomreNotFoundException,InsufficiantBalanceException {
 		orderDetailsList = dao.findAll();
-		for(OrderDetails od : orderDetailsList) {
-			if(od.getOrderId() == OrderDetails.getOrderId()) {
-				throw new DuplicateOrderException();
-			}
+		Customer customer1 = customerdao.getCustomerById(OrderDetails.getCustomer().getId());
+		if(dao.existsById(OrderDetails.getOrderId())) {
+			throw new DuplicateOrderException();
 		}
-		dao.save(OrderDetails);
+		if(customerdao.existsById(OrderDetails.getCustomer().getId())){
+			if(customer1.getTotalamount() >= OrderDetails.getAmount()) {
+				double amt = customer1.getTotalamount();
+				amt-= OrderDetails.getAmount();
+				customer1.setTotalamount(amt);
+				customerdao.save(customer1);
+				dao.save(OrderDetails);
+			}
+			throw new InsufficiantBalanceException();
+			
+		}
+		throw new CustomreNotFoundException();
 	}
 
 	@Override
@@ -62,9 +73,13 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 	@Override
 	public void deleteOrderDetails(long OrderId) throws OrderDetailsNotFoundException {
 		orderDetailsList = dao.findAll();
+		Customer customer1 = customerdao.getCustomerById(OrderId);
+		
 		for(OrderDetails od : orderDetailsList) {
 			if(od.getOrderId() == OrderId) {
-				dao.deleteById((int) OrderId);
+				customer1.setTotalamount(customer1.getTotalamount()+od.getAmount());
+				customerdao.save(customer1);
+				dao.deleteById( OrderId);
 				return;
 			}
 		}

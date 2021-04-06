@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import com.cg.online_plant_nursery.entity.Customer;
 
 @Repository
-public interface CustomerDAO extends JpaRepository<Customer, Integer>{
+public interface CustomerDAO extends JpaRepository<Customer, Long>{
 
 	@Query(value = "from Customer customer where customer.id=?1")
-	public Customer getCustomerById(int id);
+	public Customer getCustomerById(long id);
 
 }

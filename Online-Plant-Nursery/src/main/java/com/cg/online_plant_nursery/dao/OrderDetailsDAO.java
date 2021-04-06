@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cg.online_plant_nursery.entity.OrderDetails;
 
 @Repository
-public interface OrderDetailsDAO extends JpaRepository<OrderDetails, Integer>{
+public interface OrderDetailsDAO extends JpaRepository<OrderDetails, Long>{
 
 }

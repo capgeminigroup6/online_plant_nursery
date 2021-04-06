@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.cg.online_plant_nursery.entity.Fertilizer;
 
 @Repository
-public interface FertilizerDAO extends JpaRepository<Fertilizer,Integer>{
+public interface FertilizerDAO extends JpaRepository<Fertilizer,Long>{
 	@Query(value = "from Fertilizer fertilizer where fertilizer.id=?1")
 	 public Fertilizer getFertilizerById(long id);
 	

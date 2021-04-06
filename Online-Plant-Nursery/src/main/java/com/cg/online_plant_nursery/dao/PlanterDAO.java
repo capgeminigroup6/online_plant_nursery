@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.cg.online_plant_nursery.entity.Planter;
 
 @Repository
-public interface PlanterDAO extends JpaRepository<Planter,Integer>{
+public interface PlanterDAO extends JpaRepository<Planter,Long>{
 	
 	 @Query(value = "from Planter planter where planter.id=?1")
 	 public Planter getPlanterById(long id);

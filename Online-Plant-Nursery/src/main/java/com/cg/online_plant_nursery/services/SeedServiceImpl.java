@@ -41,7 +41,7 @@ public class SeedServiceImpl implements ISeedService {
 		seedList = dao.findAll();
 		for(Seed sd: seedList) {
 			if(sd.getId()==Id) {
-				 dao.deleteById(Id);
+				 dao.deleteById((long) Id);
 				 return;
 			}
 		}
@@ -52,7 +52,7 @@ public class SeedServiceImpl implements ISeedService {
 		seedList = dao.findAll();
 		for(Seed sd: seedList) {
 			if(sd.getId()==Id) {
-				Seed seed1=dao.findById(Id).get();
+				Seed seed1=dao.findById((long) Id).get();
 			      seed1.setId(seed.getId());
 			      seed1.setName(seed.getName());
 			      seed1.setSeedsperpacket(seed.getSeedsperpacket());

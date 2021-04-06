@@ -63,7 +63,7 @@ public class CustomerServiceImpl implements ICustomerService{
 		CustomerList = dao.findAll();
 		for(Customer od : CustomerList) {
 			if(od.getId() == OrderId) {
-				dao.deleteById((int) OrderId);
+				dao.deleteById( OrderId);
 				return;
 			}
 		}

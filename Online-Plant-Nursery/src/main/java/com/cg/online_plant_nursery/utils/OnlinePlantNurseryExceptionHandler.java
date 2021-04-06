@@ -40,5 +40,8 @@ public class OnlinePlantNurseryExceptionHandler {
 	public ResponseEntity<Object> exception(OutOfStockException outex){
 		return new ResponseEntity<Object>("Product out of stock...",HttpStatus.NOT_FOUND);
 	}
-	
+	@ExceptionHandler(value = InsufficiantBalanceException.class)
+	public ResponseEntity<Object> exception(InsufficiantBalanceException insufex){
+		return new ResponseEntity<Object>("Insufficiant Balance...ADD MONEY",HttpStatus.NOT_FOUND);
+	}
 }

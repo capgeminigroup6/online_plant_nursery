@@ -26,5 +26,8 @@ public interface ICartService {
 	public void updateGardenDecorQuantity(long customerID,long gardenDecorID, int quantity) throws IDNotFoundException;
 	public void updateFertilizerQuantity(long customerID,long fertilizerID, int quantity) throws IDNotFoundException;
 	
+	public Cart getOneCart(long customerID) throws IDNotFoundException;
 	public List<Cart> viewCart() throws ListIsEmptyException;
+	
+	public double TotalCartAmount(long customerID) throws IDNotFoundException;
 }

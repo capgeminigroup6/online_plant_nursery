@@ -44,7 +44,7 @@ public class FertilizerServiceImpl implements IFertilizerService{
 		fertilizerList = dao.findAll();
 		for(Fertilizer fl: fertilizerList) {
 			if(fl.getId()==FertilizerId) {
-				 dao.deleteById(FertilizerId);
+				 dao.deleteById((long) FertilizerId);
 				 return;
 			}
 		}
@@ -57,7 +57,7 @@ public class FertilizerServiceImpl implements IFertilizerService{
 		fertilizerList = dao.findAll();
 		for(Fertilizer fl: fertilizerList) {
 			if(fl.getId()==FertilizerId) {
-			   Fertilizer fertilizer1=dao.findById(FertilizerId).get();
+			   Fertilizer fertilizer1=dao.findById((long) FertilizerId).get();
 			   fertilizer1.setId(fertilizer.getId());
 			   fertilizer1.setName(fertilizer.getName());
 			   fertilizer1.setType(fertilizer.getType());

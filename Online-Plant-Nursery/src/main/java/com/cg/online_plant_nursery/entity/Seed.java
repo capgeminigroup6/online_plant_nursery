@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Seed {
 @Id
 @Column(name = "id")
-private int id;
+private long id;
 @Column
 private String name;
 @Column
@@ -20,7 +20,7 @@ private String description;
 private String image;
 public Seed() {
 }
-public Seed(int id, String name, double price, int seedsperpacket, String description, String image) {
+public Seed(long id, String name, double price, int seedsperpacket, String description, String image) {
 	super();
 	this.id = id;
 	this.name = name;
@@ -29,10 +29,10 @@ public Seed(int id, String name, double price, int seedsperpacket, String descri
 	this.description = description;
 	this.image = image;
 }
-public int getId() {
+public long getId() {
 	return id;
 }
-public void setId(int id) {
+public void setId(long id) {
 	this.id = id;
 }
 public String getName() {

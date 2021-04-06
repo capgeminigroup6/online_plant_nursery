@@ -42,7 +42,7 @@ public class GardenDecorServiceImpl implements IGardenDecorService{
 		decorList = dao.findAll();
 		for(GardenDecor gd: decorList) {
 			if(gd.getId()==Id) {
-				 dao.deleteById(Id);
+				 dao.deleteById((long) Id);
 				 return;
 			}
 		}
@@ -53,7 +53,7 @@ public class GardenDecorServiceImpl implements IGardenDecorService{
 		decorList = dao.findAll();
 		for(GardenDecor gd: decorList) {
 			if(gd.getId()==Id) {
-				GardenDecor decor1=dao.findById(Id).get();
+				GardenDecor decor1=dao.findById((long) Id).get();
 			     decor1.setId(decor.getId());
 			     decor1.setName(decor.getName());
 			     decor1.setPrice(decor.getPrice());

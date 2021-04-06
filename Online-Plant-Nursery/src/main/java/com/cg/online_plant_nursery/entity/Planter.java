@@ -7,7 +7,7 @@ import javax.persistence.*;
 	public class Planter {
 		@Id
 		@Column(name = "id")
-		private int Id;
+		private long Id;
 		@Column
 		private String Name;
 		@Column	
@@ -18,7 +18,7 @@ import javax.persistence.*;
 		private String Image;
 		public Planter() {
 		}
-		public Planter(int id, String name, String type, double price, String image) {
+		public Planter(long id, String name, String type, double price, String image) {
 			super();
 			Id = id;
 			Name = name;
@@ -26,10 +26,10 @@ import javax.persistence.*;
 			Price = price;
 			Image = image;
 		}
-		public int getId() {
+		public long getId() {
 			return Id;
 		}
-		public void setId(int id) {
+		public void setId(long id) {
 			Id = id;
 		}
 		public String getName() {

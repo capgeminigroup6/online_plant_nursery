@@ -43,7 +43,7 @@ public class PlantServiceImpl  implements IPlantService{
 		plantList = dao.findAll();
 		for(Plant pl: plantList) {
 			if(pl.getId()==PlantId) {
-				 dao.deleteById(PlantId);
+				 dao.deleteById((long) PlantId);
 				 return;
 			}
 		}
@@ -54,7 +54,7 @@ public class PlantServiceImpl  implements IPlantService{
 		plantList = dao.findAll();
 		for(Plant pl: plantList) {
 			if(pl.getId()==PlantId) {
-				Plant plant1=dao.findById(PlantId).get();
+				Plant plant1=dao.findById((long) PlantId).get();
 			      plant1.setId(plant.getId());
 			      plant1.setName(plant.getName());
 			      plant1.setType(plant.getType());

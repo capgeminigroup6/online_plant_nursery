@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.cg.online_plant_nursery.entity.Seed;
 
 @Repository
-public interface SeedDAO extends JpaRepository<Seed,Integer> {
+public interface SeedDAO extends JpaRepository<Seed,Long> {
 
 	@Query(value = "from Seed seed where seed.id=?1")
 	public Seed getSeedById(long id);
