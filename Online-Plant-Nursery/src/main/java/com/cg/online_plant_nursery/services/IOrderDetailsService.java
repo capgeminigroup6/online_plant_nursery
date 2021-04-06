@@ -11,7 +11,7 @@ import com.cg.online_plant_nursery.utils.NotAuthorizedException;
 import com.cg.online_plant_nursery.utils.OrderDetailsNotFoundException;
 
 public interface IOrderDetailsService {
-	public void addOrderDetails(OrderDetails OrderDetails) throws DuplicateOrderException,CustomreNotFoundException,InsufficiantBalanceException;
+	public void addOrderDetails(long customerID,String paymentOp,long orderID) throws DuplicateOrderException,CustomreNotFoundException,InsufficiantBalanceException;
 	public void updateOrderDetails(long OrderId, OrderDetails OrderDetails) throws OrderDetailsNotFoundException,CustomreNotFoundException;
 	public void deleteOrderDetails(long OrderId) throws OrderDetailsNotFoundException;
 	public List<OrderDetails> getAllOrderDetails(long adminID) throws ListIsEmptyException,NotAuthorizedException;

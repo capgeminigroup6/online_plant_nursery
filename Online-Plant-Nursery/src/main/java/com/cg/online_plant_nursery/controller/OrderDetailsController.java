@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.online_plant_nursery.entity.OrderDetails;
@@ -24,8 +25,8 @@ public class OrderDetailsController {
 	OrderDetailsServiceImpl service;
 	
 	@PostMapping("/add")
-	public ResponseEntity<String> addOrderDetails(@RequestBody OrderDetails orderDetails){
-		service.addOrderDetails(orderDetails);
+	public ResponseEntity<String> addOrderDetails(@RequestParam long customerID,String paymentOp,long orderID){
+		service.addOrderDetails(customerID,paymentOp,orderID);
 		return new ResponseEntity<String>("Order added...",HttpStatus.OK);
 	}
 	

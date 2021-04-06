@@ -1,5 +1,7 @@
 package com.cg.online_plant_nursery.entity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -17,10 +19,10 @@ public class OrderDetails {
 	@Column
 	private double Amount;
 	@Column
-	private Date date;
+	private LocalDateTime date;
 	public OrderDetails() {
 	}
-	public OrderDetails(long orderId, Customer customer, String paymentOption, double amount, Date date) {
+	public OrderDetails(long orderId, Customer customer, String paymentOption, double amount, LocalDateTime date) {
 		super();
 		OrderId = orderId;
 		this.customer = customer;
@@ -52,11 +54,11 @@ public class OrderDetails {
 	public void setAmount(double amount) {
 		Amount = amount;
 	}
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(LocalDateTime localDateTime) {
+		this.date = localDateTime;
 	}
 	@Override
 	public String toString() {
