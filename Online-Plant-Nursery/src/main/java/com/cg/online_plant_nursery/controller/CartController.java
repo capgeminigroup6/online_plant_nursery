@@ -23,9 +23,9 @@ public class CartController {
 	@Autowired
 	CartServiceImpl service;
 	
-	@GetMapping("/get")
-	public ResponseEntity<List<Cart>> viewCart(){
-		return new ResponseEntity<List<Cart>>(service.viewCart(), HttpStatus.OK);
+	@GetMapping("/get/{admin}")
+	public ResponseEntity<List<Cart>> viewCart(@PathVariable long admin){
+		return new ResponseEntity<List<Cart>>(service.viewCart(admin), HttpStatus.OK);
 	}
 	@GetMapping("/getOne/{customerID}")
 	public ResponseEntity<Cart> viewOneCart(@PathVariable long customerID){

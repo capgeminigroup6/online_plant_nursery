@@ -6,14 +6,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.online_plant_nursery.dao.AdminDAO;
+import com.cg.online_plant_nursery.dao.CartDAO;
 import com.cg.online_plant_nursery.dao.CustomerDAO;
 import com.cg.online_plant_nursery.dao.OrderDetailsDAO;
+import com.cg.online_plant_nursery.entity.Cart;
 import com.cg.online_plant_nursery.entity.Customer;
 import com.cg.online_plant_nursery.entity.OrderDetails;
 import com.cg.online_plant_nursery.utils.CustomreNotFoundException;
 import com.cg.online_plant_nursery.utils.DuplicateOrderException;
 import com.cg.online_plant_nursery.utils.InsufficiantBalanceException;
 import com.cg.online_plant_nursery.utils.ListIsEmptyException;
+import com.cg.online_plant_nursery.utils.NotAuthorizedException;
 import com.cg.online_plant_nursery.utils.OrderDetailsNotFoundException;
 
 @Service
@@ -22,12 +26,19 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 	OrderDetailsDAO dao;
 	@Autowired
 	CustomerDAO customerdao;
+	@Autowired
+	AdminDAO adminDao;
+	@Autowired
+	CartDAO cartDao;
+	
 	List<OrderDetails> orderDetailsList = new ArrayList<>();
 	List<Customer> customerList = new ArrayList<>();
+	List<Cart> cartList = new ArrayList<>();
 	
 	@Override
 	public void addOrderDetails(OrderDetails OrderDetails) throws DuplicateOrderException,CustomreNotFoundException,InsufficiantBalanceException {
 		orderDetailsList = dao.findAll();
+		boolean flag = false;
 		Customer customer1 = customerdao.getCustomerById(OrderDetails.getCustomer().getId());
 		if(dao.existsById(OrderDetails.getOrderId())) {
 			throw new DuplicateOrderException();
@@ -39,6 +50,21 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 				customer1.setTotalamount(amt);
 				customerdao.save(customer1);
 				dao.save(OrderDetails);
+				for(Cart c : cartList) {
+					if(c.getCustomer().getId() == customer1.getId()) {
+						c.setPlant(null);
+						c.setPlanter(null);
+						c.setFertilizer(null);
+						c.setSeed(null);
+						c.setGardendecor(null);
+						cartDao.save(c);
+						if(flag == true) {
+							cartDao.delete(c);
+						}
+						flag = true;
+					}
+				}
+				return;
 			}
 			throw new InsufficiantBalanceException();
 			
@@ -47,8 +73,7 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 	}
 
 	@Override
-	public void updateOrderDetails(long OrderId, OrderDetails OrderDetails)
-			throws OrderDetailsNotFoundException, CustomreNotFoundException {
+	public void updateOrderDetails(long OrderId, OrderDetails OrderDetails) throws OrderDetailsNotFoundException, CustomreNotFoundException {
 		orderDetailsList = dao.findAll();
 		for(OrderDetails od : orderDetailsList) {
 			if(od.getOrderId() == OrderId) {
@@ -79,6 +104,8 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 			if(od.getOrderId() == OrderId) {
 				customer1.setTotalamount(customer1.getTotalamount()+od.getAmount());
 				customerdao.save(customer1);
+				od.setCustomer(null);
+				dao.save(od);
 				dao.deleteById( OrderId);
 				return;
 			}
@@ -87,12 +114,15 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 	}
 
 	@Override
-	public List<OrderDetails> getAllOrderDetails() throws ListIsEmptyException {
+	public List<OrderDetails> getAllOrderDetails(long adminID) throws ListIsEmptyException,NotAuthorizedException {
 		orderDetailsList = dao.findAll();
-		if(orderDetailsList == null) {
-			throw new ListIsEmptyException();
+		if(adminDao.existsById(adminID)) {
+			if(orderDetailsList.isEmpty()) {
+				throw new ListIsEmptyException();
+			}
+			return orderDetailsList;
 		}
-		return orderDetailsList;
+		throw new NotAuthorizedException();
 	}
 
 	@Override

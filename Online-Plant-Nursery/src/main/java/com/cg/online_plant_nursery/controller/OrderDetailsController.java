@@ -41,9 +41,9 @@ public class OrderDetailsController {
 		return new ResponseEntity<String>("deleted...",HttpStatus.OK);
 	}
 	
-	@GetMapping("/getAll")
-	public ResponseEntity<List<OrderDetails>> getAllOrderDetails(){
-		return new ResponseEntity<List<OrderDetails>>(service.getAllOrderDetails(),HttpStatus.OK);
+	@GetMapping("/getAll/{adminID}")
+	public ResponseEntity<List<OrderDetails>> getAllOrderDetails(@PathVariable long adminID){
+		return new ResponseEntity<List<OrderDetails>>(service.getAllOrderDetails(adminID),HttpStatus.OK);
 	}
 	
 	@GetMapping("/getByID/{orderID}")

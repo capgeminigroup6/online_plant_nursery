@@ -30,27 +30,25 @@ public ResponseEntity<String> addcustomer(@RequestBody Customer customer){
  return new ResponseEntity<String>("Customer Added",HttpStatus.OK);
 }
 
-@GetMapping("/get")
-public ResponseEntity<List<Customer>> getAllCustomer(){
- List<Customer> customerList=service.getAllCustomer();
- return new ResponseEntity<List<Customer>>(customerList,HttpStatus.OK);
+@GetMapping("/get/{adminID}")
+public ResponseEntity<List<Customer>> getAllCustomer(@PathVariable long adminID){
+ return new ResponseEntity<List<Customer>>(service.getAllCustomer(adminID),HttpStatus.OK);
 }
 
-@GetMapping("/getbyid")
-public ResponseEntity<Customer> getCustomerById(@RequestBody int Id){
- Customer customer=service.getCustomerById(Id);
- return new ResponseEntity<Customer>(customer,HttpStatus.OK);
+@GetMapping("/getbyid/{Id}")
+public ResponseEntity<Customer> getCustomerById(@PathVariable long Id){
+ return new ResponseEntity<Customer>(service.getCustomerById(Id),HttpStatus.OK);
 }
 
 @DeleteMapping("/delete/{Id}")
-public ResponseEntity<String> removeCustomer(@PathVariable int Id){
+public ResponseEntity<String> removeCustomer(@PathVariable long Id){
 service.removeCustomer(Id);
 return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 }
 
 @PutMapping("/updateCustomer/{id}")
-public ResponseEntity<String> updateCustomer(@PathVariable int id,@RequestBody Customer customer){
+public ResponseEntity<String> updateCustomer(@PathVariable long id,@RequestBody Customer customer){
  service.updateCustomer(id, customer);
- return new ResponseEntity<String>("updated",HttpStatus.OK);
+ return new ResponseEntity<String>("updated...",HttpStatus.OK);
 }
 }

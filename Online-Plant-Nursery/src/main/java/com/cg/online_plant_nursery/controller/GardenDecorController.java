@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.online_plant_nursery.entity.GardenDecor;
@@ -23,9 +24,9 @@ public class GardenDecorController {
 @Autowired
 IGardenDecorService service;
 
-@PostMapping("/addgardendecor")
-public ResponseEntity<String> addDecor(@RequestBody GardenDecor decor){
- service.addDecor(decor);
+@PostMapping("/addgardendecor/{admin}")
+public ResponseEntity<String> addDecor(@PathVariable long admin,@RequestBody GardenDecor decor){
+ service.addDecor(admin, decor);
  return new ResponseEntity<String>("GardenDecor Added",HttpStatus.OK);
 }
 
@@ -41,14 +42,14 @@ GardenDecor decor=service.getDecorById(Id);
  return new ResponseEntity<GardenDecor>(decor,HttpStatus.OK);
 }
 
-@DeleteMapping("/delete/{Id}")
-public ResponseEntity<String> removeDecor(@PathVariable int Id){
-service.removeDecor(Id);
+@DeleteMapping("/delete/{admin}")
+public ResponseEntity<String> removeDecor(@PathVariable long admin, @RequestParam int Id){
+service.removeDecor(admin, Id);
 return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 }
-@PutMapping("/updategardendecor/{id}")
-public ResponseEntity<String> updateDecor(@PathVariable int id,@RequestBody GardenDecor decor){
- service.updateGardenDecor(id, decor);
+@PutMapping("/updategardendecor/{admin}")
+public ResponseEntity<String> updateDecor(@PathVariable long admin,@RequestParam int id,@RequestBody GardenDecor decor){
+ service.updateGardenDecor(admin,id, decor);
  return new ResponseEntity<String>("updated",HttpStatus.OK);
 }
 }

@@ -34,7 +34,7 @@ public class OnlinePlantNurseryExceptionHandler {
 	}
 	@ExceptionHandler(value = DuplicateException.class)
 	public ResponseEntity<Object> exception(DuplicateException dupex){
-		return new ResponseEntity<Object>("Order has been repeated...",HttpStatus.NOT_ACCEPTABLE);
+		return new ResponseEntity<Object>("Duplication not allowed...",HttpStatus.NOT_ACCEPTABLE);
 	}
 	@ExceptionHandler(value = OutOfStockException.class)
 	public ResponseEntity<Object> exception(OutOfStockException outex){
@@ -43,5 +43,9 @@ public class OnlinePlantNurseryExceptionHandler {
 	@ExceptionHandler(value = InsufficiantBalanceException.class)
 	public ResponseEntity<Object> exception(InsufficiantBalanceException insufex){
 		return new ResponseEntity<Object>("Insufficiant Balance...ADD MONEY",HttpStatus.NOT_FOUND);
+	}
+	@ExceptionHandler(value = NotAuthorizedException.class)
+	public ResponseEntity<Object> exception(NotAuthorizedException nazex){
+		return new ResponseEntity<Object>("you are not admin...",HttpStatus.NOT_FOUND);
 	}
 }

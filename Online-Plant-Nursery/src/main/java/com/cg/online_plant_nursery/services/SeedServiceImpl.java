@@ -6,26 +6,35 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.online_plant_nursery.dao.AdminDAO;
 import com.cg.online_plant_nursery.dao.SeedDAO;
 import com.cg.online_plant_nursery.entity.Seed;
 import com.cg.online_plant_nursery.utils.DuplicateException;
 import com.cg.online_plant_nursery.utils.IDNotFoundException;
 import com.cg.online_plant_nursery.utils.ListIsEmptyException;
+import com.cg.online_plant_nursery.utils.NotAuthorizedException;
 
 @Service
 public class SeedServiceImpl implements ISeedService {
 	@Autowired
 	SeedDAO dao;
+	@Autowired
+	AdminDAO admindao;
+	
 	List<Seed> seedList = new ArrayList<>();
 	@Override
-	public void addSeed(Seed seed) throws DuplicateException {
+	public void addSeed(long adminID,Seed seed) throws DuplicateException,NotAuthorizedException  {
 		seedList = dao.findAll();
-		for(Seed sd: seedList) {
-			if(sd.getId() ==seed.getId()){
-				throw new DuplicateException();
+		if(admindao.existsById(adminID)) {
+			for(Seed sd: seedList) {
+				if(sd.getId() ==seed.getId()){
+					throw new DuplicateException();
+				}
 			}
+			dao.save(seed);
+			return;
 		}
-		dao.save(seed);
+		throw new NotAuthorizedException();
 			}
 	
 	@Override
@@ -37,34 +46,41 @@ public class SeedServiceImpl implements ISeedService {
 			return seedList;
 	}
 	@Override
-	public void removeSeed(int Id) throws IDNotFoundException{
+	public void removeSeed(long adminID,int Id) throws IDNotFoundException,NotAuthorizedException {
 		seedList = dao.findAll();
-		for(Seed sd: seedList) {
-			if(sd.getId()==Id) {
-				 dao.deleteById((long) Id);
-				 return;
+		if(admindao.existsById(adminID)) {
+			for(Seed sd: seedList) {
+				if(sd.getId()==Id) {
+					 dao.deleteById((long) Id);
+					 return;
+				}
 			}
+			throw new IDNotFoundException();
 		}
-		throw new IDNotFoundException();
+		throw new NotAuthorizedException();
 			 		}
 		@Override
-	public void updateSeed(int Id, Seed seed)  throws IDNotFoundException{
+	public void updateSeed(long adminID,int Id, Seed seed)  throws IDNotFoundException,NotAuthorizedException {
 		seedList = dao.findAll();
-		for(Seed sd: seedList) {
-			if(sd.getId()==Id) {
-				Seed seed1=dao.findById((long) Id).get();
-			      seed1.setId(seed.getId());
-			      seed1.setName(seed.getName());
-			      seed1.setSeedsperpacket(seed.getSeedsperpacket());
-			      seed1.setPrice(seed.getPrice());
-			      seed1.setDescription(seed.getDescription());
-			      seed1.setImage(seed.getImage());
-			      dao.save(seed1);
-			      return;
-					}
+		if(admindao.existsById(adminID)) {
+			for(Seed sd: seedList) {
+				if(sd.getId()==Id) {
+					Seed seed1=dao.findById((long) Id).get();
+				      seed1.setId(seed.getId());
+				      seed1.setName(seed.getName());
+				      seed1.setSeedsperpacket(seed.getSeedsperpacket());
+				      seed1.setPrice(seed.getPrice());
+				      seed1.setDescription(seed.getDescription());
+				      seed1.setImage(seed.getImage());
+				      dao.save(seed1);
+				      return;
+						}
+			}
+			 throw new IDNotFoundException();
 		}
-		 throw new IDNotFoundException();
+		throw new NotAuthorizedException();
 		}
+		
 		@Override
 	public Seed getSeedById(int Id) throws IDNotFoundException {
 		seedList = dao.findAll();

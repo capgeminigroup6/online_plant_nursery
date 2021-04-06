@@ -5,6 +5,7 @@ import java.util.List;
 import com.cg.online_plant_nursery.entity.Cart;
 import com.cg.online_plant_nursery.utils.IDNotFoundException;
 import com.cg.online_plant_nursery.utils.ListIsEmptyException;
+import com.cg.online_plant_nursery.utils.NotAuthorizedException;
 import com.cg.online_plant_nursery.utils.OutOfStockException;
 
 public interface ICartService {
@@ -27,7 +28,7 @@ public interface ICartService {
 	public void updateFertilizerQuantity(long customerID,long fertilizerID, int quantity) throws IDNotFoundException;
 	
 	public Cart getOneCart(long customerID) throws IDNotFoundException;
-	public List<Cart> viewCart() throws ListIsEmptyException;
+	public List<Cart> viewCart(long adminID) throws ListIsEmptyException,NotAuthorizedException;
 	
 	public double TotalCartAmount(long customerID) throws IDNotFoundException;
 }

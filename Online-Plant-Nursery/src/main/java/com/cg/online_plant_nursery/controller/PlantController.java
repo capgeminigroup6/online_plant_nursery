@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.online_plant_nursery.entity.Plant;
@@ -23,9 +24,9 @@ public class PlantController {
 	@Autowired
 	IPlantService service;
 	
-	@PostMapping("/addplant")
-	 public ResponseEntity<String> addPlant(@RequestBody Plant plant){
-	  service.addPlant(plant);
+	@PostMapping("/addplant/{admin}")
+	 public ResponseEntity<String> addPlant(@PathVariable long admin,@RequestBody Plant plant){
+	  service.addPlant(admin,plant);
 	  return new ResponseEntity<String>("Plant Added",HttpStatus.OK);
 	 }
 	
@@ -41,15 +42,15 @@ public class PlantController {
 	  return new ResponseEntity<Plant>(plant,HttpStatus.OK);
 	 }
 	 
-	 @DeleteMapping("/delete/{PlantId}")
-		public ResponseEntity<String> removePlant(@PathVariable int PlantId){
-			service.removePlant(PlantId);
+	 @DeleteMapping("/delete/{admin}")
+		public ResponseEntity<String> removePlant(@PathVariable long admin,@RequestParam int PlantId){
+			service.removePlant(admin,PlantId);
 			return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 		}
 	 
-	 @PutMapping("/updateplant/{id}")
-	 public ResponseEntity<String> updatePlant(@PathVariable int id,@RequestBody Plant plant){
-	  service.updatePlant(id, plant);
+	 @PutMapping("/updateplant/{admin}")
+	 public ResponseEntity<String> updatePlant(@PathVariable long admin,@RequestParam int id,@RequestBody Plant plant){
+	  service.updatePlant(admin,id, plant);
 	  return new ResponseEntity<String>("updated",HttpStatus.OK);
 	 }
 	 

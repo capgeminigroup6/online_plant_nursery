@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.online_plant_nursery.entity.Seed;
@@ -24,9 +25,9 @@ public class SeedController {
 @Autowired
 SeedServiceImpl service;
 
-@PostMapping("/addseed")
-public ResponseEntity<String> addSeed(@RequestBody Seed seed){
- service.addSeed(seed);
+@PostMapping("/addseed/{admin}")
+public ResponseEntity<String> addSeed(@PathVariable long admin,@RequestBody Seed seed){
+ service.addSeed(admin,seed);
  return new ResponseEntity<String>("Seed Added",HttpStatus.OK);
 }
 
@@ -42,14 +43,14 @@ Seed seed=service.getSeedById(Id);
  return new ResponseEntity<Seed>(seed,HttpStatus.OK);
 }
 
-@DeleteMapping("/delete/{Id}")
-public ResponseEntity<String> removeSeed(@PathVariable int Id){
-service.removeSeed(Id);
+@DeleteMapping("/delete/{admin}")
+public ResponseEntity<String> removeSeed(@PathVariable long admin,@RequestParam int Id){
+service.removeSeed(admin,Id);
 return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 }
-@PutMapping("/updateseed/{id}")
-public ResponseEntity<String> updateSeed(@PathVariable int id,@RequestBody Seed seed){
- service.updateSeed(id, seed);
+@PutMapping("/updateseed/{admin}")
+public ResponseEntity<String> updateSeed(@PathVariable long admin,@RequestParam int id,@RequestBody Seed seed){
+ service.updateSeed(admin,id, seed);
  return new ResponseEntity<String>("updated",HttpStatus.OK);
 }
 }

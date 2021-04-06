@@ -6,64 +6,81 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.online_plant_nursery.dao.AdminDAO;
+import com.cg.online_plant_nursery.dao.CartDAO;
 import com.cg.online_plant_nursery.dao.CustomerDAO;
+import com.cg.online_plant_nursery.entity.Cart;
 import com.cg.online_plant_nursery.entity.Customer;
 import com.cg.online_plant_nursery.utils.CustomreNotFoundException;
+import com.cg.online_plant_nursery.utils.DuplicateException;
 import com.cg.online_plant_nursery.utils.DuplicateOrderException;
 import com.cg.online_plant_nursery.utils.IDNotFoundException;
 import com.cg.online_plant_nursery.utils.ListIsEmptyException;
+import com.cg.online_plant_nursery.utils.NotAuthorizedException;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService{
 	@Autowired
 	CustomerDAO dao;
 	@Autowired
-	CustomerDAO customerdao;
+	AdminDAO admindao;
+	@Autowired
+	CartDAO cartdao;
 	List<Customer> CustomerList = new ArrayList<>();
-	List<Customer> customerList = new ArrayList<>();
+	List<Cart> cartList = new ArrayList<>();
 	
 	@Override
-	public void addCustomer(Customer Customer) throws DuplicateOrderException {
+	public void addCustomer(Customer Customer) throws DuplicateException {
 		CustomerList = dao.findAll();
 		for(Customer od : CustomerList) {
 			if(od.getId() == Customer.getId()) {
-				throw new DuplicateOrderException();
+				throw new DuplicateException();
 			}
 		}
 		dao.save(Customer);
+		Cart cart = new Cart();
+		cart.setCustomer(dao.getCustomerById(Customer.getId()));
+		cart.setTotalamount(0);
+		cartdao.save(cart);
 	}
 
 	@Override
-	public void updateCustomer(long OrderId, Customer Customer)
-			throws CustomreNotFoundException {
+	public void updateCustomer(long customer_id, Customer Customer) throws CustomreNotFoundException {
 		CustomerList = dao.findAll();
-		for(Customer od : CustomerList) {
-			if(od.getId() == OrderId) {
-				customerList = customerdao.findAll();
-					for(Customer c : customerList) {
+				CustomerList = dao.findAll();
+					for(Customer c : CustomerList) {
 						if(c.getId() == Customer.getId()) {
-							od.setId(Customer.getId());
-							od.setName(Customer.getName());
-							od.setEmail(Customer.getEmail());
-							od.setPassword(Customer.getPassword());
-							od.setContactnumber(Customer.getContactnumber());
-							od.setTotalamount(Customer.getTotalamount());
-							dao.save(od);
+							c.setId(Customer.getId());
+							c.setName(Customer.getName());
+							c.setEmail(Customer.getEmail());
+							c.setPassword(Customer.getPassword());
+							c.setContactnumber(Customer.getContactnumber());
+							c.setTotalamount(Customer.getTotalamount());
+							dao.save(c);
 							return;
 						}
 					}
 					throw new CustomreNotFoundException();
-			}
-		}
-		throw new CustomreNotFoundException();
 	}
 
 	@Override
-	public void removeCustomer(long OrderId) throws CustomreNotFoundException {
+	public void removeCustomer(long customer_id) throws CustomreNotFoundException {
 		CustomerList = dao.findAll();
 		for(Customer od : CustomerList) {
-			if(od.getId() == OrderId) {
-				dao.deleteById( OrderId);
+			if(od.getId() == customer_id) {
+				cartList = cartdao.findAll();
+				for(Cart c : cartList) {
+					if(c.getCustomer().getId() == customer_id) {
+						c.setPlant(null);
+						c.setPlanter(null);
+						c.setFertilizer(null);
+						c.setSeed(null);
+						c.setGardendecor(null);
+						cartdao.save(c);
+						cartdao.delete(c);
+					}
+				}
+				dao.deleteById( customer_id);
 				return;
 			}
 		}
@@ -71,14 +88,24 @@ public class CustomerServiceImpl implements ICustomerService{
 	}
 
 	@Override
-	public List<Customer> getAllCustomer() throws ListIsEmptyException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Customer> getAllCustomer(long adminID) throws ListIsEmptyException, NotAuthorizedException {
+		CustomerList = dao.findAll();
+		if(admindao.existsById(adminID)) {
+			if(CustomerList.isEmpty()) {
+				throw new ListIsEmptyException();
+			}
+			return CustomerList;
+		}
+		throw new NotAuthorizedException();
 	}
 
 	@Override
 	public Customer getCustomerById(long customer_id) throws IDNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		if(dao.existsById(customer_id)) {
+			return dao.getCustomerById(customer_id);
+		}
+		throw new IDNotFoundException();
 	}
+
+	
 }
