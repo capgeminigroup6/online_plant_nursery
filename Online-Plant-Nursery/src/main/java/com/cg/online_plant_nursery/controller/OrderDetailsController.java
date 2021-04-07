@@ -27,7 +27,7 @@ public class OrderDetailsController {
 	@PostMapping("/add")
 	public ResponseEntity<String> addOrderDetails(@RequestParam long customerID,String paymentOp,long orderID){
 		service.addOrderDetails(customerID,paymentOp,orderID);
-		return new ResponseEntity<String>("Order added...",HttpStatus.OK);
+		return new ResponseEntity<String>("order added...",HttpStatus.OK);
 	}
 	
 	@PutMapping("/update/{orderID}")

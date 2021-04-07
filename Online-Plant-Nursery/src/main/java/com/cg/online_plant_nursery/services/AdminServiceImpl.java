@@ -24,6 +24,7 @@ public void addAdmin(long adminID,Admin admin) throws DuplicateException,NotAuth
 			throw new DuplicateException();	//duplication of id not allowed
 		}
 		dao.save(admin);
+		return;
 	}
 	throw new NotAuthorizedException();  // Checks for admin user
 }

@@ -37,7 +37,7 @@ public ResponseEntity<List<GardenDecor>> getAllDecors(){
 }
 
 @GetMapping("/getbyid")
-public ResponseEntity<GardenDecor> getDecorById(@RequestBody int Id){
+public ResponseEntity<GardenDecor> getDecorById(@RequestParam int Id){
 GardenDecor decor=service.getDecorById(Id);
  return new ResponseEntity<GardenDecor>(decor,HttpStatus.OK);
 }
