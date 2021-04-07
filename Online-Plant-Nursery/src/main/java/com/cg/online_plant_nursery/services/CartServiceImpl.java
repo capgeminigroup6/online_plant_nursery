@@ -8,14 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.cg.online_plant_nursery.dao.AdminDAO;
 import com.cg.online_plant_nursery.dao.CartDAO;
-import com.cg.online_plant_nursery.dao.CustomerDAO;
 import com.cg.online_plant_nursery.dao.FertilizerDAO;
 import com.cg.online_plant_nursery.dao.GardenDecorDAO;
 import com.cg.online_plant_nursery.dao.PlantDAO;
 import com.cg.online_plant_nursery.dao.PlanterDAO;
 import com.cg.online_plant_nursery.dao.SeedDAO;
 import com.cg.online_plant_nursery.entity.Cart;
-import com.cg.online_plant_nursery.entity.Customer;
 import com.cg.online_plant_nursery.entity.Fertilizer;
 import com.cg.online_plant_nursery.entity.GardenDecor;
 import com.cg.online_plant_nursery.entity.Plant;
@@ -35,7 +33,7 @@ public class CartServiceImpl implements ICartService{
 	@Autowired
 	SeedDAO seedDao;
 	@Autowired
-	PlanterDAO planterDao;
+	PlanterDAO planterDao;		//autowires these services with repository classes
 	@Autowired
 	FertilizerDAO fertilizerDao;
 	@Autowired
@@ -57,29 +55,28 @@ public class CartServiceImpl implements ICartService{
 								for(Cart c1 : CartList) {
 									if(c1.getCustomer().getId() == customerID && c1.getPlant().getId() == plantID) {
 										c1.setPlant_quantity(quantity);
-										c1.setTotalamount(c1.getTotalamount()+(quantity*pl.getPrice()));
+										c1.setTotalamount(c1.getTotalamount()+(quantity*pl.getPrice()));	//if cart has the product already with 0 quantity
 										dao.save(c1);
 										return;
 									}
 								}
-								//c2.setCartid(c.getCartid());
 								c2.setCustomer(c.getCustomer());
 								c2.setPlant(pl);
 								c2.setPlant_quantity(quantity);
-								c2.setTotalamount(quantity*pl.getPrice());
+								c2.setTotalamount(quantity*pl.getPrice());		//if a product of same category is already in the cart
 								dao.save(c2);
 								return;
 							}
 							c.setPlant(pl);
 							c.setPlant_quantity(quantity);
-							c.setTotalamount(c.getTotalamount()+(quantity*pl.getPrice()));
+							c.setTotalamount(c.getTotalamount()+(quantity*pl.getPrice()));	//if cart is empty
 							dao.save(c);
 							return;
 					}
-					throw new OutOfStockException();
+					throw new OutOfStockException();	//if product is not found in the list
 				}
 			}
-			throw new IDNotFoundException();
+			throw new IDNotFoundException();	//if customer id is not found in the list
 	}
 				
 
@@ -96,22 +93,21 @@ public class CartServiceImpl implements ICartService{
 						for(Cart c1 : CartList) {
 							if(c1.getCustomer().getId() == customerID && c1.getSeed().getId() == seedID) {
 								c1.setSeed_quantity(quantity);
-								c1.setTotalamount(c1.getTotalamount()+(quantity*s.getPrice()));
+								c1.setTotalamount(c1.getTotalamount()+(quantity*s.getPrice()));	//if cart has the product already with 0 quantity
 								dao.save(c1);
 								return;
 							}
 						}
-						//c2.setCartid(c.getCartid());
 						c2.setCustomer(c.getCustomer());
 						c2.setSeed(s);
 						c2.setSeed_quantity(quantity);
-						c2.setTotalamount(quantity*s.getPrice());
+						c2.setTotalamount(quantity*s.getPrice());	//if a product of same category is already in the cart
 						dao.save(c2);
 						return;
 					}
 						c.setSeed(s);
 						c.setSeed_quantity(quantity);
-						c.setTotalamount(c.getTotalamount()+(quantity*s.getPrice()));
+						c.setTotalamount(c.getTotalamount()+(quantity*s.getPrice()));	//if cart is empty
 						dao.save(c);
 						return;
 				}
@@ -134,23 +130,22 @@ public class CartServiceImpl implements ICartService{
 						for(Cart c1 : CartList) {
 							if(c1.getCustomer().getId() == customerID && c1.getPlanter().getId() == planterID) {
 								c1.setPlanter_quantity(quantity);
-								c1.setTotalamount(c1.getTotalamount()+(quantity*plr.getPrice()));
+								c1.setTotalamount(c1.getTotalamount()+(quantity*plr.getPrice()));	//if cart has the product already with 0 quantity
 								dao.save(c1);
 								return;
 							}
 						}
-						//c2.setCartid(c.getCartid());
 						c2.setCustomer(c.getCustomer());
 						c2.setPlanter(plr);
 						c2.setPlanter_quantity(quantity);
 						c2.setTotalamount(quantity*plr.getPrice());
-						dao.save(c2);
+						dao.save(c2);	//if a product of same category is already in the cart
 						return;
 							
 					}
 						c.setPlanter(plr);
 						c.setPlanter_quantity(quantity);
-						c.setTotalamount(c.getTotalamount()+(quantity*plr.getPrice()));
+						c.setTotalamount(c.getTotalamount()+(quantity*plr.getPrice()));	//if cart is empty
 						dao.save(c);
 						return;
 				}
@@ -173,15 +168,14 @@ public class CartServiceImpl implements ICartService{
 						for(Cart c1 : CartList) {
 							if(c1.getCustomer().getId() == customerID && c1.getGardendecor().getId() == gardenDecorID) {
 								c1.setGarden_decor_quantity(quantity);
-								c1.setTotalamount(c1.getTotalamount()+(quantity*gd.getPrice()));
+								c1.setTotalamount(c1.getTotalamount()+(quantity*gd.getPrice()));	//if cart has the product already with 0 quantity
 								dao.save(c1);
 								return;
 							}
 						}
-						//c2.setCartid(c.getCartid());
 						c2.setCustomer(c.getCustomer());
 						c2.setGardendecor(gd);
-						c2.setGarden_decor_quantity(quantity);
+						c2.setGarden_decor_quantity(quantity);	//if a product of same category is already in the cart
 						c2.setTotalamount(quantity*gd.getPrice());
 						dao.save(c2);
 						return;
@@ -189,7 +183,7 @@ public class CartServiceImpl implements ICartService{
 					}
 						c.setGardendecor(gd);
 						c.setGarden_decor_quantity(quantity);
-						c.setTotalamount(c.getTotalamount()+(quantity*gd.getPrice()));
+						c.setTotalamount(c.getTotalamount()+(quantity*gd.getPrice()));	//if cart is empty
 						dao.save(c);
 						return;
 				}
@@ -211,24 +205,23 @@ public class CartServiceImpl implements ICartService{
 						Cart c2 = new Cart();
 						for(Cart c1 : CartList) {
 							if(c1.getCustomer().getId() == customerID && c1.getFertilizer().getId() == fertilizerID) {
-								c1.setFertlizer_quantity(quantity);
-								c1.setTotalamount(c1.getTotalamount()+(quantity*fz.getPrice()));
+								c1.setFertlizer_quantity(quantity);	
+								c1.setTotalamount(c1.getTotalamount()+(quantity*fz.getPrice()));	//if cart has the product already with 0 quantity
 								dao.save(c1);
 								return;
 							}
 						}
-						//c2.setCartid(c.getCartid());
 						c2.setCustomer(c.getCustomer());
 						c2.setFertilizer(fz);
 						c2.setFertlizer_quantity(quantity);
-						c2.setTotalamount(quantity*fz.getPrice());
+						c2.setTotalamount(quantity*fz.getPrice());	//if a product of same category is already in the cart
 						dao.save(c2);
 						return;
 							
 					}
 						c.setFertilizer(fz);
 						c.setFertlizer_quantity(quantity);
-						c.setTotalamount(c.getTotalamount()+(quantity*fz.getPrice()));
+						c.setTotalamount(c.getTotalamount()+(quantity*fz.getPrice()));	//if cart is empty
 						dao.save(c);
 						return;
 				}
@@ -250,7 +243,7 @@ public class CartServiceImpl implements ICartService{
 				return;
 			}
 		}
-		throw new IDNotFoundException();
+		throw new IDNotFoundException();	//if customer id not present
 	}
 
 	@Override
@@ -323,9 +316,8 @@ public class CartServiceImpl implements ICartService{
 		
 		for(Cart c : CartList) {	
 			if(c.getCustomer().getId() == customerID && c.getPlant().getId() == plantID) {
-				Plant pl = plantDao.getPlantById(plantID);
-				c.setTotalamount(c.getTotalamount()-(plantDao.getPlantById(plantID).getPrice()*c.getPlant_quantity()));
-				c.setTotalamount(c.getTotalamount()+(plantDao.getPlantById(plantID).getPrice()*quantity));
+				c.setTotalamount(c.getTotalamount()-(plantDao.getPlantById(plantID).getPrice()*c.getPlant_quantity()));//remove the price with the previous quantity
+				c.setTotalamount(c.getTotalamount()+(plantDao.getPlantById(plantID).getPrice()*quantity));//update the price with new quantity
 				c.setPlant_quantity(quantity);
 				dao.save(c);
 				return;
@@ -340,7 +332,6 @@ public class CartServiceImpl implements ICartService{
 		
 		for(Cart c : CartList) {
 			if(c.getCustomer().getId() == customerID && c.getSeed().getId() == seedID) {
-				Seed sd = seedDao.getSeedById(seedID);
 				c.setTotalamount(c.getTotalamount()-(seedDao.getSeedById(seedID).getPrice()*c.getSeed_quantity()));
 				c.setTotalamount(c.getTotalamount()+(seedDao.getSeedById(seedID).getPrice()*quantity));
 				c.setSeed_quantity(quantity);
@@ -357,7 +348,6 @@ public class CartServiceImpl implements ICartService{
 		
 		for(Cart c : CartList) {
 			if(c.getCustomer().getId() == customerID && c.getPlanter().getId() == planterID) {
-				Planter plr = planterDao.getPlanterById(planterID);
 				c.setTotalamount(c.getTotalamount()-(planterDao.getPlanterById(planterID).getPrice()*c.getPlanter_quantity()));
 				c.setTotalamount(c.getTotalamount()+(planterDao.getPlanterById(planterID).getPrice()*quantity));
 				c.setPlanter_quantity(quantity);
@@ -374,7 +364,6 @@ public class CartServiceImpl implements ICartService{
 		
 		for(Cart c : CartList) {
 			if(c.getCustomer().getId() == customerID && c.getGardendecor().getId() == gardenDecorID) {
-				GardenDecor gd = gardenDecorDao.getDecorById(gardenDecorID);
 				c.setTotalamount(c.getTotalamount()-(gardenDecorDao.getDecorById(gardenDecorID).getPrice()*c.getGarden_decor_quantity()));
 				c.setTotalamount(c.getTotalamount()+(gardenDecorDao.getDecorById(gardenDecorID).getPrice()*quantity));
 				c.setGarden_decor_quantity(quantity);
@@ -391,7 +380,6 @@ public class CartServiceImpl implements ICartService{
 		
 		for(Cart c : CartList) {
 			if(c.getCustomer().getId() == customerID && c.getFertilizer().getId() == fertilizerID) {
-				Fertilizer fz = fertilizerDao.getFertilizerById(fertilizerID);
 				c.setTotalamount(c.getTotalamount()-(fertilizerDao.getFertilizerById(fertilizerID).getPrice()*c.getFertlizer_quantity()));
 				c.setTotalamount(c.getTotalamount()+(fertilizerDao.getFertilizerById(fertilizerID).getPrice()*quantity));
 				c.setFertlizer_quantity(quantity);
@@ -406,11 +394,11 @@ public class CartServiceImpl implements ICartService{
 	public List<Cart> viewCart(long adminID) throws ListIsEmptyException,NotAuthorizedException {
 		if(admindao.existsById(adminID)) {
 			if(dao.findAll().isEmpty()) {
-				throw new ListIsEmptyException();
+				throw new ListIsEmptyException();	// if cart list is empty
 			}
 			return dao.findAll();
 		}
-		throw new NotAuthorizedException();
+		throw new NotAuthorizedException();		//only admin have access to this
 		
 	}
 
@@ -419,7 +407,7 @@ public class CartServiceImpl implements ICartService{
 	public Cart getOneCart(long customerID) throws IDNotFoundException {
 		CartList = dao.findAll();
 		for(Cart c : CartList) {
-			if(c.getCustomer().getId() == customerID) {
+			if(c.getCustomer().getId() == customerID) {		//get particular customer's cart details
 				return c;
 			}
 		}
@@ -433,8 +421,8 @@ public class CartServiceImpl implements ICartService{
 		CartList = dao.findAll();
 		boolean flag = false;
 		for(Cart c : CartList) {
-			if(c.getCustomer().getId() == customerID) {
-				flag= true;
+			if(c.getCustomer().getId() == customerID) {		//total cart amount of respective customer
+				flag= true;		
 				amt+=c.getTotalamount();
 			}
 		}

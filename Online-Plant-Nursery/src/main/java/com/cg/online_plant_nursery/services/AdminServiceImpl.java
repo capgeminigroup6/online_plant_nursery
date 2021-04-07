@@ -14,18 +14,18 @@ import com.cg.online_plant_nursery.utils.NotAuthorizedException;
 
 @Service
 public class AdminServiceImpl implements IAdminService{
-@Autowired
+@Autowired		//autowires this service with repository class
 AdminDAO dao;
 
 public void addAdmin(long adminID,Admin admin) throws DuplicateException,NotAuthorizedException
 {
 	if(dao.existsById(adminID)) {
 		if(dao.existsById(admin.getId())) {
-			throw new DuplicateException();
+			throw new DuplicateException();	//duplication of id not allowed
 		}
 		dao.save(admin);
 	}
-	throw new NotAuthorizedException();
+	throw new NotAuthorizedException();  // Checks for admin user
 }
 
 public void removeAdmin(long adminID,long admin_id) throws IDNotFoundException,NotAuthorizedException{
@@ -37,9 +37,9 @@ public void removeAdmin(long adminID,long admin_id) throws IDNotFoundException,N
 			dao.delete(admin1);
 			return;
 		}
-		throw new IDNotFoundException();
+		throw new IDNotFoundException();  //if the ID value not found in the database
 	}
-	throw new NotAuthorizedException();
+	throw new NotAuthorizedException();   // Checks for admin user
 }
 
 public List<Admin> getAllAdmin(long adminID) throws ListIsEmptyException,NotAuthorizedException
@@ -47,7 +47,7 @@ public List<Admin> getAllAdmin(long adminID) throws ListIsEmptyException,NotAuth
 	if(dao.existsById(adminID)) {
 		List<Admin> adminList=dao.findAll();
 		if(adminList.isEmpty()) {
-			throw new ListIsEmptyException();
+			throw new ListIsEmptyException();  //if the output list is empty
 		}
 		return adminList;
 	}
@@ -60,9 +60,9 @@ public Admin getAdminById(long adminID,long admin_id) throws IDNotFoundException
 		if(dao.existsById(admin_id)) {
 			return dao.getAdminById(admin_id);
 		}
-		throw new IDNotFoundException();
+		throw new IDNotFoundException();  //if the ID value not found in the database
 	}
-	throw new NotAuthorizedException();
+	throw new NotAuthorizedException();  // Checks for admin user
 	
 }
 

@@ -13,7 +13,6 @@ import com.cg.online_plant_nursery.entity.Cart;
 import com.cg.online_plant_nursery.entity.Customer;
 import com.cg.online_plant_nursery.utils.CustomreNotFoundException;
 import com.cg.online_plant_nursery.utils.DuplicateException;
-import com.cg.online_plant_nursery.utils.DuplicateOrderException;
 import com.cg.online_plant_nursery.utils.IDNotFoundException;
 import com.cg.online_plant_nursery.utils.ListIsEmptyException;
 import com.cg.online_plant_nursery.utils.NotAuthorizedException;
@@ -23,7 +22,7 @@ public class CustomerServiceImpl implements ICustomerService{
 	@Autowired
 	CustomerDAO dao;
 	@Autowired
-	AdminDAO admindao;
+	AdminDAO admindao;		//autowires these services with repository classes
 	@Autowired
 	CartDAO cartdao;
 	List<Customer> CustomerList = new ArrayList<>();
@@ -34,7 +33,7 @@ public class CustomerServiceImpl implements ICustomerService{
 		CustomerList = dao.findAll();
 		for(Customer od : CustomerList) {
 			if(od.getId() == Customer.getId()) {
-				throw new DuplicateException();
+				throw new DuplicateException();		//duplication of customer not allowed
 			}
 		}
 		dao.save(Customer);
@@ -60,7 +59,7 @@ public class CustomerServiceImpl implements ICustomerService{
 							return;
 						}
 					}
-					throw new CustomreNotFoundException();
+					throw new CustomreNotFoundException();	//customer id not found
 	}
 
 	@Override
@@ -84,7 +83,7 @@ public class CustomerServiceImpl implements ICustomerService{
 				return;
 			}
 		}
-		throw new CustomreNotFoundException();
+		throw new CustomreNotFoundException();	//customer id not found
 	}
 
 	@Override
@@ -96,7 +95,7 @@ public class CustomerServiceImpl implements ICustomerService{
 			}
 			return CustomerList;
 		}
-		throw new NotAuthorizedException();
+		throw new NotAuthorizedException();	//only admin have access to this 
 	}
 
 	@Override

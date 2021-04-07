@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.online_plant_nursery.entity.Fertilizer;
 import com.cg.online_plant_nursery.services.FertilizerServiceImpl;
-import com.cg.online_plant_nursery.services.IFertilizerService;
-import com.cg.online_plant_nursery.utils.DuplicateException;
 
 @RestController  
 @RequestMapping("/Fertilizer")

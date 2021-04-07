@@ -2,14 +2,13 @@ package com.cg.online_plant_nursery.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+//Entity with table name = "Customer"
 @Entity
 @Table(name = "Customer")
 public class Customer {
+//Columns inside the table
 	@Id
 	@Column(name = "id")
 	private long id;
@@ -23,6 +22,7 @@ public class Customer {
 	private long contactnumber;
 	@Column
 	private double totalamount;
+//Constructors
 	public Customer() {
 	}
 	public Customer(long id, String name, String email, String password, int contactnumber, double totalamount) {
@@ -34,6 +34,7 @@ public class Customer {
 		this.contactnumber = contactnumber;
 		this.totalamount = totalamount;
 	}
+//Required getters and setters
 	public long getId() {
 		return id;
 	}
@@ -70,6 +71,7 @@ public class Customer {
 	public void setTotalamount(double totalamount) {
 		this.totalamount = totalamount;
 	}
+//To display the contents
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password

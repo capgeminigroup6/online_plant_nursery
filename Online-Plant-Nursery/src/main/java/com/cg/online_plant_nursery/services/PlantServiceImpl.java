@@ -40,7 +40,7 @@ public class PlantServiceImpl  implements IPlantService{
 	@Override
 	public List<Plant> getAllPlants() throws ListIsEmptyException {
 		 plantList=dao.findAll();
-		 if(plantList == null) {
+		 if(plantList.isEmpty()) {
 				throw new ListIsEmptyException();
 			}
 			return plantList;
@@ -67,7 +67,7 @@ public class PlantServiceImpl  implements IPlantService{
 		if(adminDAO.existsById(adminID)) {
 			for(Plant pl: plantList) {
 				if(pl.getId()==PlantId) {
-					Plant plant1=dao.findById((long) PlantId).get();
+					Plant plant1=dao.getPlantById(PlantId);
 				      plant1.setId(plant.getId());
 				      plant1.setName(plant.getName());
 				      plant1.setType(plant.getType());

@@ -92,27 +92,27 @@ public class CartController {
 	@PutMapping("/updatePlant")
 	public ResponseEntity<String> updatePlant(@RequestParam long customerID,long plantID,int quantity){
 		service.updatePlantQuantity(customerID, plantID, quantity);
-		return new ResponseEntity<String>("updated ...", HttpStatus.OK);
+		return new ResponseEntity<String>("Plant updated ...", HttpStatus.OK);
 	}
 	@PutMapping("/updateSeed")
 	public ResponseEntity<String> updateSeed(@RequestParam long customerID,long seedID,int quantity){
 		service.updateSeedQuantity(customerID, seedID, quantity);
-		return new ResponseEntity<String>("updated ...", HttpStatus.OK);
+		return new ResponseEntity<String>("Seed updated ...", HttpStatus.OK);
 	}
 	@PutMapping("/updatePlanter")
 	public ResponseEntity<String> updatePlanter(@RequestParam long customerID,long planterID,int quantity){
 		service.updatePlanterQuantity(customerID, planterID, quantity);
-		return new ResponseEntity<String>("updated ...", HttpStatus.OK);
+		return new ResponseEntity<String>("Planter updated ...", HttpStatus.OK);
 	}
 	@PutMapping("/updateDecor")
 	public ResponseEntity<String> updateDecor(@RequestParam long customerID,long DecorID,int quantity){
 		service.updateGardenDecorQuantity(customerID, DecorID, quantity);
-		return new ResponseEntity<String>("updated ...", HttpStatus.OK);
+		return new ResponseEntity<String>("Garder Decor updated ...", HttpStatus.OK);
 	}
 	@PutMapping("/updateFertilizer")
 	public ResponseEntity<String> updateFertilizer(@RequestParam long customerID,long FertilizerID,int quantity){
 		service.updateFertilizerQuantity(customerID, FertilizerID, quantity);
-		return new ResponseEntity<String>("updated ...", HttpStatus.OK);
+		return new ResponseEntity<String>("Fertilizer updated ...", HttpStatus.OK);
 	}
 	
 	

@@ -17,7 +17,7 @@ import com.cg.online_plant_nursery.utils.NotAuthorizedException;
 @Service
 public class GardenDecorServiceImpl implements IGardenDecorService{
 	@Autowired
-  GardenDecorDAO dao;
+	GardenDecorDAO dao;
 	@Autowired
 	AdminDAO adminDAO;
 	
@@ -40,7 +40,7 @@ public class GardenDecorServiceImpl implements IGardenDecorService{
 	@Override
 	public List<GardenDecor> getAllDecors() throws ListIsEmptyException {
 		 decorList=dao.findAll();
-		 if(decorList == null) {
+		 if(decorList.isEmpty()) {
 				throw new ListIsEmptyException();
 			}
 			return decorList;
@@ -65,7 +65,7 @@ public class GardenDecorServiceImpl implements IGardenDecorService{
 		if(adminDAO.existsById(adminID)) {
 			for(GardenDecor gd: decorList) {
 				if(gd.getId()==Id) {
-					GardenDecor decor1=dao.findById((long) Id).get();
+					GardenDecor decor1=dao.getDecorById(Id);
 				     decor1.setId(decor.getId());
 				     decor1.setName(decor.getName());
 				     decor1.setPrice(decor.getPrice());

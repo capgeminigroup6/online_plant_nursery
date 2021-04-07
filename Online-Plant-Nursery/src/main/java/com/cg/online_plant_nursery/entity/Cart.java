@@ -10,42 +10,50 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+//Entity with table name = "cart"
 @Entity
 @Table(name = "cart")
 public class Cart {
+//Columns inside the table
+//Primary key cartid generates value automatically whenever value is null
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long cartid;
 	
+//This customerid column references to customer.id with a OneToOne type relation
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customerid",referencedColumnName = "id")
 	private Customer customer;
 	
+//This plantid column references to plant.id with a OneToOne type relation
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "plantid",referencedColumnName = "id")
 	private Plant plant;
 	@Column
 	private Integer plant_quantity;
 	
+//This seedid column references to seed.id with a OneToOne type relation
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "seedid",referencedColumnName = "id")
 	private Seed seed;
 	@Column
 	private Integer seed_quantity;
 	
+//This fertilizerid column references to fertilizer.id with a OneToOne type relation
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fertilizerid",referencedColumnName = "id")
 	private Fertilizer fertilizer;
 	@Column
 	private Integer fertlizer_quantity;
 	
+//This planterid column references to planter.id with a OneToOne type relation
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "planterid",referencedColumnName = "id")
 	private Planter planter;
 	@Column
 	private Integer planter_quantity;
 	
+//This gardendecorid column references to gardendecor.id with a OneToOne type relation
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "gardendecorid",referencedColumnName = "id")
 	private GardenDecor gardendecor;
@@ -54,7 +62,7 @@ public class Cart {
 	
 	@Column
 	private double totalamount;
-	
+//Constructors
 	public Cart() {
 	}
 
@@ -76,7 +84,7 @@ public class Cart {
 		this.garden_decor_quantity = garden_decor_quantity;
 		this.totalamount = totalamount;
 	}
-
+//Required getters and setters
 	public long getCartid() {
 		return cartid;
 	}
@@ -180,7 +188,7 @@ public class Cart {
 	public void setTotalamount(double totalamount) {
 		this.totalamount = totalamount;
 	}
-
+//To display the contents
 	@Override
 	public String toString() {
 		return "Cart [cartid=" + cartid + ", customer=" + customer + ", plant=" + plant + ", plant_quantity="

@@ -2,7 +2,6 @@ package com.cg.online_plant_nursery.services;
 
 import java.util.List;
 
-import com.cg.online_plant_nursery.entity.Plant;
 import com.cg.online_plant_nursery.entity.Planter;
 import com.cg.online_plant_nursery.utils.DuplicateException;
 import com.cg.online_plant_nursery.utils.IDNotFoundException;

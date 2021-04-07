@@ -1,10 +1,11 @@
 package com.cg.online_plant_nursery.entity;
 
 import javax.persistence.*;
-
+//Entity with table name = "fertilizer"
 @Entity
 	@Table(name="fertilizer")
 	public class Fertilizer {
+//Columns inside the table
 		@Id
 		@Column(name = "id")
 		private long id;
@@ -18,6 +19,7 @@ import javax.persistence.*;
 		private String description;
 		@Column
 		private String image;
+//Constructors
 		public Fertilizer() {
 		}
 		public Fertilizer(long id, String name, String type, double price, String description, String image) {
@@ -29,6 +31,7 @@ import javax.persistence.*;
 			this.description = description;
 			this.image = image;
 		}
+//Required getters and setters
 		public long getId() {
 			return id;
 		}
@@ -65,6 +68,7 @@ import javax.persistence.*;
 		public void setImage(String image) {
 			this.image = image;
 		}
+//To display the contents
 		@Override
 		public String toString() {
 			return "Fertilizer [id=" + id + ", name=" + name + ", type=" + type + ", price=" + price + ", description="

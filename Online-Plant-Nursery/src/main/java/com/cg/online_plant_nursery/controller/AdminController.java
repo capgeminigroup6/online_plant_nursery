@@ -21,7 +21,7 @@ import com.cg.online_plant_nursery.services.AdminServiceImpl;
 @RequestMapping("/admin")
 public class AdminController {
 @Autowired
-AdminServiceImpl service;
+AdminServiceImpl service;		
 
 @PostMapping("/add/{adminID}")
 public ResponseEntity<String> addadmin(@PathVariable long adminID,@RequestBody Admin admin){

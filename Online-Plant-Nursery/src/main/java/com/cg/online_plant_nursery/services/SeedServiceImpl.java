@@ -40,7 +40,7 @@ public class SeedServiceImpl implements ISeedService {
 	@Override
 	public List<Seed> getAllSeeds() throws ListIsEmptyException {
 		 seedList=dao.findAll();
-		 if(seedList == null) {
+		 if(seedList.isEmpty()) {
 				throw new ListIsEmptyException();
 			}
 			return seedList;
@@ -65,7 +65,7 @@ public class SeedServiceImpl implements ISeedService {
 		if(admindao.existsById(adminID)) {
 			for(Seed sd: seedList) {
 				if(sd.getId()==Id) {
-					Seed seed1=dao.findById((long) Id).get();
+					Seed seed1=dao.getSeedById(Id);
 				      seed1.setId(seed.getId());
 				      seed1.setName(seed.getName());
 				      seed1.setSeedsperpacket(seed.getSeedsperpacket());

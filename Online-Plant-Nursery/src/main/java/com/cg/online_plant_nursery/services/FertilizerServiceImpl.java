@@ -69,7 +69,7 @@ public class FertilizerServiceImpl implements IFertilizerService{
 		if(adminDAO.existsById(adminID)) {
 			for(Fertilizer fl: fertilizerList) {
 				if(fl.getId()==FertilizerId) {
-				   Fertilizer fertilizer1=dao.findById((long) FertilizerId).get();
+				   Fertilizer fertilizer1=dao.getFertilizerById(FertilizerId);
 				   fertilizer1.setId(fertilizer.getId());
 				   fertilizer1.setName(fertilizer.getName());
 				   fertilizer1.setType(fertilizer.getType());

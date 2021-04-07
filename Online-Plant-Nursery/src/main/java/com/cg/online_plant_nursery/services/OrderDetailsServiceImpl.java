@@ -1,7 +1,6 @@
 package com.cg.online_plant_nursery.services;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 	@Autowired
 	OrderDetailsDAO dao;
 	@Autowired
-	CustomerDAO customerdao;
+	CustomerDAO customerdao;		//autowires these services with repository classes
 	@Autowired
 	AdminDAO adminDao;
 	@Autowired
@@ -36,9 +35,7 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 	List<OrderDetails> orderDetailsList = new ArrayList<>();
 	List<Customer> customerList = new ArrayList<>();
 	List<Cart> cartList = new ArrayList<>();
-	
-//	 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-//	 LocalDateTime now = LocalDateTime.now();
+
 	 
 	@Override
 	public void addOrderDetails(long customerID,String paymentOp,long orderID) throws DuplicateOrderException,CustomreNotFoundException,InsufficiantBalanceException {
@@ -46,25 +43,26 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 		cartList = cartDao.findAll();
 		boolean flag = false;
 		double amt = 0;
-		Customer customer1 = new Customer();
+		Customer customer1;
 		OrderDetails odr = new OrderDetails();
 		
 		if(customerdao.existsById(customerID)){
 			customer1 = customerdao.getCustomerById(customerID);
 			for(Cart c : cartList) {
-				if(c.getCustomer().getId() == customerID) {
-					amt += c.getTotalamount();
+				if(c.getCustomer().getId() == customerID) {			
+					amt += c.getTotalamount();					//get total cart amount
 				}
 			}
-			if(customer1.getTotalamount() >= amt) {
+			
+			if(customer1.getTotalamount() >= amt) {			//checks if customer has sufficient balance 
 				double custamt = customer1.getTotalamount();
 				custamt = custamt - amt;
-				customer1.setTotalamount(custamt);
+				customer1.setTotalamount(custamt);			//updates the customer wallet amount after buy 
 				customerdao.save(customer1);
 				odr.setOrderId(orderID);
 				odr.setCustomer(customer1);
 				odr.setDate(java.time.LocalDateTime.now());
-				odr.setPaymentOption(paymentOp);
+				odr.setPaymentOption(paymentOp);			//create new order details
 				odr.setAmount(amt);
 				dao.save(odr);
 				for(Cart c : cartList) {
@@ -75,14 +73,14 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 						c.setPlanter_quantity(0);
 						c.setFertilizer(null);
 						c.setFertlizer_quantity(0);
-						c.setSeed(null);
+						c.setSeed(null);					//update the cart products to null
 						c.setSeed_quantity(0);
 						c.setGardendecor(null);
 						c.setGarden_decor_quantity(0);
 						c.setTotalamount(0);
 						cartDao.save(c);
 						if(flag == true) {
-							cartDao.delete(c);
+							cartDao.delete(c);				//if one cart already there for customer,delete the remaining empty carts
 						}
 						flag = true;
 					}
@@ -125,7 +123,7 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 		
 		for(OrderDetails od : orderDetailsList) {
 			if(od.getOrderId() == OrderId) {
-				customer1.setTotalamount(customer1.getTotalamount()+od.getAmount());
+				customer1.setTotalamount(customer1.getTotalamount()+od.getAmount());		//refund the amount
 				customerdao.save(customer1);
 				od.setCustomer(null);
 				dao.save(od);
@@ -141,11 +139,11 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 		orderDetailsList = dao.findAll();
 		if(adminDao.existsById(adminID)) {
 			if(orderDetailsList.isEmpty()) {
-				throw new ListIsEmptyException();
+				throw new ListIsEmptyException();		//if list is empty
 			}
 			return orderDetailsList;
 		}
-		throw new NotAuthorizedException();
+		throw new NotAuthorizedException();	 //only admin can access these
 	}
 
 	@Override
@@ -156,7 +154,7 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 				return od;
 			}
 		}
-		throw new OrderDetailsNotFoundException();		
+		throw new OrderDetailsNotFoundException();		//order not found
 	}
 
 

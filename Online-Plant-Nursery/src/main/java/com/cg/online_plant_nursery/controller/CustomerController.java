@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.online_plant_nursery.entity.Customer;
 import com.cg.online_plant_nursery.services.CustomerServiceImpl;
-import com.cg.online_plant_nursery.services.ICustomerService;
 
 @RestController
 @RequestMapping("/Customer")
