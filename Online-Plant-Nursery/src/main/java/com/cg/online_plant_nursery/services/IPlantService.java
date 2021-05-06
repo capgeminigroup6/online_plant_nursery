@@ -11,8 +11,8 @@ import com.cg.online_plant_nursery.utils.NotAuthorizedException;
 public interface IPlantService {
 	public void addPlant(long adminID,Plant plant) throws DuplicateException,NotAuthorizedException ;
 	public List<Plant> getAllPlants()throws ListIsEmptyException;
-	public void removePlant(long adminID,int PlantId)throws IDNotFoundException,NotAuthorizedException;
-	public void updatePlant(long adminID,int PlantId, Plant plant)throws IDNotFoundException,NotAuthorizedException;
-	public Plant getPlantById(int PlantId)throws IDNotFoundException;
+	public void removePlant(long adminID,int plantId)throws IDNotFoundException,NotAuthorizedException;
+	public void updatePlant(long adminID,int plantId, Plant plant)throws IDNotFoundException,NotAuthorizedException;
+	public Plant getPlantById(int plantId)throws IDNotFoundException;
 
 }

@@ -36,15 +36,15 @@ public class PlantController {
 	  return new ResponseEntity<List<Plant>>(plantList,HttpStatus.OK);
 	 }
 	
-	 @GetMapping("/getbyid/{PlantId}")
-	 public ResponseEntity<Plant> getPlantById(@PathVariable int PlantId){
-	 Plant plant=service.getPlantById(PlantId);
+	 @GetMapping("/getbyid/{plantId}")
+	 public ResponseEntity<Plant> getPlantById(@PathVariable int plantId){
+	 Plant plant=service.getPlantById(plantId);
 	  return new ResponseEntity<Plant>(plant,HttpStatus.OK);
 	 }
 	 
 	 @DeleteMapping("/delete/{admin}")
-		public ResponseEntity<String> removePlant(@PathVariable long admin,@RequestParam int PlantId){
-			service.removePlant(admin,PlantId);
+		public ResponseEntity<String> removePlant(@PathVariable long admin,@RequestParam int plantId){
+			service.removePlant(admin,plantId);
 			return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 		}
 	 

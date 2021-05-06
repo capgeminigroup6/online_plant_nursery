@@ -27,20 +27,20 @@ public class PlanterServiceImpl implements IPlanterService{
 		if(admindao.existsById(adminID)){
 			for(Planter pl: planterList) {
 				if(pl.getId() ==planter.getId()){
-					throw new DuplicateException();
+					throw new DuplicateException();  //duplication of planters are not allowed
 				}
 			}
 			dao.save(planter);
 			return;
 		}
-		throw new NotAuthorizedException();
+		throw new NotAuthorizedException();         //only Admin has authorized access
 }
 	
 	@Override
 	public List<Planter> getAllPlanters() throws ListIsEmptyException {
 		 planterList=dao.findAll();
 		   if(planterList.isEmpty()) {
-						throw new ListIsEmptyException();
+						throw new ListIsEmptyException();  //planter list is null
 					}
 					return planterList;
 	}
@@ -48,31 +48,31 @@ public class PlanterServiceImpl implements IPlanterService{
 	
 
 	@Override
-	public void removePlanter(long adminID,int PlanterId) throws IDNotFoundException,NotAuthorizedException{
+	public void removePlanter(long adminID,int planterId) throws IDNotFoundException,NotAuthorizedException{
 		
 			planterList = dao.findAll();
 			if(admindao.existsById(adminID)){
 				for(Planter pl: planterList) {
-					if(pl.getId()==PlanterId) {
-						 dao.deleteById((long) PlanterId);
+					if(pl.getId()==planterId) {
+						 dao.deleteById((long) planterId);
 						 return;
 					}
 				}
-				throw new IDNotFoundException();
+				throw new IDNotFoundException();    //planter Id is not found 
 			}
-			throw new NotAuthorizedException();
+			throw new NotAuthorizedException();    //only Admin has authorized access
 		}
 		
 	
 
 	@Override
-	public void updatePlanter(long adminID,int PlanterId, Planter planter) throws IDNotFoundException,NotAuthorizedException{
+	public void updatePlanter(long adminID,int planterId, Planter planter) throws IDNotFoundException,NotAuthorizedException{
 		
 			 planterList = dao.findAll();
 			 if(admindao.existsById(adminID)){
 				 for(Planter pl: planterList) {
-						if(pl.getId()==PlanterId) {
-							Planter planter1=dao.getPlanterById(PlanterId);
+						if(pl.getId()==planterId) {
+							Planter planter1=dao.getPlanterById(planterId);
 							   planter1.setId(planter.getId());
 							      planter1.setName(planter.getName());
 							      planter1.setType(planter.getType());
@@ -83,19 +83,19 @@ public class PlanterServiceImpl implements IPlanterService{
 						   return;
 								}
 					}
-					 throw new IDNotFoundException();
+					 throw new IDNotFoundException();   //planter Id is not found 
 			 }
-				throw new NotAuthorizedException();
+				throw new NotAuthorizedException();     //only Admin has authorized access
 	}
 	@Override
-	public Planter getPlanterById(int PlanterId)throws IDNotFoundException {
+	public Planter getPlanterById(int planterId)throws IDNotFoundException {
 		planterList = dao.findAll();
 		for(Planter pl: planterList) {
-			if(pl.getId()== PlanterId) {
+			if(pl.getId()== planterId) {
 				return pl;
 			}
 		}
-		throw new IDNotFoundException();
+		throw new IDNotFoundException();               //planter Id is not found 
 	}
 	
 }

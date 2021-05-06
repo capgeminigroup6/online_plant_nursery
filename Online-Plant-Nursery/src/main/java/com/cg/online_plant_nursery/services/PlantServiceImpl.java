@@ -28,46 +28,47 @@ public class PlantServiceImpl  implements IPlantService{
 		if(adminDAO.existsById(adminID)) {
 			for(Plant pl: plantList) {
 				if(pl.getId() ==plant.getId()){
-					throw new DuplicateException();
+					throw new DuplicateException();    //duplication of plants are not allowed
 				}
 			}
 			dao.save(plant);
 			return;
 		}
-		throw new NotAuthorizedException();
+		throw new NotAuthorizedException();           //only Admin has authorized access
+	
 	}
 	
 	@Override
 	public List<Plant> getAllPlants() throws ListIsEmptyException {
 		 plantList=dao.findAll();
 		 if(plantList.isEmpty()) {
-				throw new ListIsEmptyException();
+				throw new ListIsEmptyException();     //plant list is null
 			}
 			return plantList;
 	}
 	
 		@Override
-	public void removePlant(long adminID,int PlantId) throws IDNotFoundException,NotAuthorizedException{
+	public void removePlant(long adminID,int plantId) throws IDNotFoundException,NotAuthorizedException{
 		plantList = dao.findAll();
 		if(adminDAO.existsById(adminID)) {
 			for(Plant pl: plantList) {
-				if(pl.getId()==PlantId) {
-					 dao.deleteById((long) PlantId);
+				if(pl.getId()==plantId) {
+					 dao.deleteById((long) plantId);
 					 return;
 				}
 			}
-			throw new IDNotFoundException();
+			throw new IDNotFoundException();         //plant Id is not found 
 		}
-		throw new NotAuthorizedException();
+		throw new NotAuthorizedException();          //only Admin has authorized access
 	 }
 		
 		@Override
-	public void updatePlant(long adminID,int PlantId, Plant plant)  throws IDNotFoundException,NotAuthorizedException{
+	public void updatePlant(long adminID,int plantId, Plant plant)  throws IDNotFoundException,NotAuthorizedException{
 		plantList = dao.findAll();
 		if(adminDAO.existsById(adminID)) {
 			for(Plant pl: plantList) {
-				if(pl.getId()==PlantId) {
-					Plant plant1=dao.getPlantById(PlantId);
+				if(pl.getId()==plantId) {
+					Plant plant1=dao.getPlantById(plantId);
 				      plant1.setId(plant.getId());
 				      plant1.setName(plant.getName());
 				      plant1.setType(plant.getType());
@@ -78,19 +79,20 @@ public class PlantServiceImpl  implements IPlantService{
 				   return;
 						}
 			}
-			 throw new IDNotFoundException();
+			 throw new IDNotFoundException();       //plant Id is not found 
 		}
-		throw new NotAuthorizedException();
+		throw new NotAuthorizedException();         //only Admin has authorized access
+		
 		}
 		@Override
-	public Plant getPlantById(int PlantId) throws IDNotFoundException {
+	public Plant getPlantById(int plantId) throws IDNotFoundException {
 		plantList = dao.findAll();
 		for(Plant pl: plantList) {
-			if(pl.getId()== PlantId) {
+			if(pl.getId()== plantId) {
 				return pl;
 			}
 		}
-		throw new IDNotFoundException();
+		throw new IDNotFoundException();            //plant Id is not found 
 	}
 }
 

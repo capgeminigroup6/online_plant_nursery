@@ -37,14 +37,14 @@ public class PlanterController {
 	 }
 	
 	 @GetMapping("/getbyid")
-	 public ResponseEntity<Planter> getPlanterById(@RequestBody int Id){
-	 Planter planter=service.getPlanterById(Id);
+	 public ResponseEntity<Planter> getPlanterById(@RequestBody int id){
+	 Planter planter=service.getPlanterById(id);
 	  return new ResponseEntity<Planter>(planter,HttpStatus.OK);
 	 }
 	 
 	 @DeleteMapping("/delete/{admin}")
-		public ResponseEntity<String> removePlanter(@PathVariable long admin,@RequestParam int PlanterId){
-			service.removePlanter(admin,PlanterId);
+		public ResponseEntity<String> removePlanter(@PathVariable long admin,@RequestParam int planterId){
+			service.removePlanter(admin,planterId);
 			return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 		}
 	 
