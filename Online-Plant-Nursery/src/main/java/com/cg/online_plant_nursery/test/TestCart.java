@@ -31,7 +31,6 @@ public class TestCart {
 	@Mock
 	CartDAO dao;
 	
-	
 	@Before
 	public void init() {
 		System.out.println("** before method ***");
