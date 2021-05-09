@@ -78,8 +78,7 @@ public class CartServiceImpl implements ICartService{
 			}
 			throw new IDNotFoundException();	//if customer id is not found in the list
 	}
-				
-
+			
 	@Override
 	public void addSeedToCart(long customerID, long seedID, int quantity) throws IDNotFoundException,OutOfStockException {
 		CartList = dao.findAll();
@@ -401,6 +400,13 @@ public class CartServiceImpl implements ICartService{
 		throw new NotAuthorizedException();		//only admin have access to this
 		
 	}
+	@Override
+	public List<Cart> viewCart() throws ListIsEmptyException, NotAuthorizedException {
+		if(dao.findAll().isEmpty()) {
+			throw new ListIsEmptyException();	// if cart list is empty
+		}
+		return dao.findAll();
+	}
 
 
 	@Override
@@ -412,6 +418,15 @@ public class CartServiceImpl implements ICartService{
 			}
 		}
 		throw new IDNotFoundException();
+	}
+	@Override
+	public Cart getOneCart1(long cartID) throws IDNotFoundException {
+		if(dao.getCartById(cartID) != null) {
+			return dao.getCartById(cartID);
+		}
+		else {
+			throw new IDNotFoundException();
+		}
 	}
 
 
@@ -432,4 +447,20 @@ public class CartServiceImpl implements ICartService{
 		return amt;
 	}
 
+	@Override
+	public void addPlantToCart(Cart cart) {
+		dao.save(cart);
+	}
+	
+	@Override
+	public void removePlantFromCart(Cart cart) {
+		dao.save(cart);
+	}
+
+	@Override
+	public void updatePlantInCart(Cart cart) {
+		dao.save(cart);		
+	}
+
+	
 }
