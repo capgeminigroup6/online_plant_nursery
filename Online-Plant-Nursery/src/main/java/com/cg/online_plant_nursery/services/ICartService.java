@@ -29,6 +29,11 @@ public interface ICartService {
 	
 	public Cart getOneCart(long customerID) throws IDNotFoundException;
 	public List<Cart> viewCart(long adminID) throws ListIsEmptyException,NotAuthorizedException;
-	
 	public double TotalCartAmount(long customerID) throws IDNotFoundException;
+	
+	public Cart getOneCart1(long cartID) throws IDNotFoundException;
+	public List<Cart> viewCart() throws ListIsEmptyException,NotAuthorizedException;
+	public void addPlantToCart(Cart cart);
+	public void removePlantFromCart(Cart cart);
+	public void updatePlantInCart(Cart cart);
 }
