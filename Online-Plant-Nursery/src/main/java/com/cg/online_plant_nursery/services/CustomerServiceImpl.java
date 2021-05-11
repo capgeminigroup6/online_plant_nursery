@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.cg.online_plant_nursery.dao.AdminDAO;
 import com.cg.online_plant_nursery.dao.CartDAO;
 import com.cg.online_plant_nursery.dao.CustomerDAO;
+import com.cg.online_plant_nursery.entity.Admin;
 import com.cg.online_plant_nursery.entity.Cart;
 import com.cg.online_plant_nursery.entity.Customer;
 import com.cg.online_plant_nursery.utils.CustomreNotFoundException;
@@ -22,7 +23,7 @@ public class CustomerServiceImpl implements ICustomerService{
 	@Autowired
 	CustomerDAO dao;
 	@Autowired
-	AdminDAO admindao;		//autowires these services with repository classes
+	AdminDAO admindao;				//autowires these services with repository classes
 	@Autowired
 	CartDAO cartdao;
 	List<Customer> CustomerList = new ArrayList<>();
@@ -30,18 +31,40 @@ public class CustomerServiceImpl implements ICustomerService{
 	
 	@Override
 	public void addCustomer(Customer Customer) throws DuplicateException {
-		CustomerList = dao.findAll();
-		for(Customer od : CustomerList) {
-			if(od.getId() == Customer.getId()) {
-				throw new DuplicateException();		//duplication of customer not allowed
-			}
+		if(dao.getCustomerById(Customer.getId()) != null) {
+			throw new DuplicateException();	
 		}
-		dao.save(Customer);
+		else {
+			dao.save(Customer);
+		}
+		if(Customer.getRole() == "admin") {
+			Admin admin = new Admin();
+			admin.setCustomer(Customer);
+			admindao.save(admin);
+		}
 		Cart cart = new Cart();
 		cart.setCustomer(dao.getCustomerById(Customer.getId()));
 		cart.setTotalamount(0);
 		cartdao.save(cart);
 	}
+	
+	public Customer validate(String email, String password) {
+		return dao.validate(email, password);
+	}
+//	@Override
+//	public void addCustomer(Customer Customer) throws DuplicateException {
+//		CustomerList = dao.findAll();
+//		for(Customer od : CustomerList) {
+//			if(od.getId() == Customer.getId()) {
+//				throw new DuplicateException();		//duplication of customer not allowed
+//			}
+//		}
+//		dao.save(Customer);
+//		Cart cart = new Cart();
+//		cart.setCustomer(dao.getCustomerById(Customer.getId()));
+//		cart.setTotalamount(0);
+//		cartdao.save(cart);
+//	}
 
 	@Override
 	public void updateCustomer(long customer_id, Customer Customer) throws CustomreNotFoundException {
@@ -105,6 +128,7 @@ public class CustomerServiceImpl implements ICustomerService{
 		}
 		throw new IDNotFoundException();
 	}
-
 	
+
+
 }

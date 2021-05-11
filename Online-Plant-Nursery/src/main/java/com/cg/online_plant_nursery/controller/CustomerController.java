@@ -23,6 +23,12 @@ public class CustomerController {
 @Autowired
 CustomerServiceImpl service;
 
+@PostMapping("/validate")
+public ResponseEntity<Customer> validate(@RequestBody Customer customer){
+	Customer cust = service.validate(customer.getEmail(),customer.getPassword());
+	return new ResponseEntity<Customer>(cust,HttpStatus.OK);
+}
+
 @PostMapping("/addcustomer")
 public ResponseEntity<String> addcustomer(@RequestBody Customer customer){
  service.addCustomer(customer);
