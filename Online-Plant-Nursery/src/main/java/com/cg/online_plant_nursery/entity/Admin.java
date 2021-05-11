@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class Admin{
 //Columns inside the table
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private long id;
 //This customerID column references to customer.id with a OneToOne type relation

@@ -37,9 +37,9 @@ public class CustomerServiceImpl implements ICustomerService{
 		else {
 			dao.save(Customer);
 		}
-		if(Customer.getRole() == "admin") {
+		if(Customer.getRole().equals("admin")) {
 			Admin admin = new Admin();
-			admin.setCustomer(Customer);
+			admin.setCustomer(dao.getCustomerById(Customer.getId()));
 			admindao.save(admin);
 		}
 		Cart cart = new Cart();
