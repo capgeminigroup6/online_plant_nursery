@@ -5,18 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.online_plant_nursery.entity.Cart;
+import com.cg.online_plant_nursery.entity.Customer;
+import com.cg.online_plant_nursery.entity.UserCart;
 import com.cg.online_plant_nursery.services.CartServiceImpl;
 
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/Cart")
 public class CartController {
@@ -28,17 +33,18 @@ public class CartController {
 		return new ResponseEntity<List<Cart>>(service.viewCart(admin), HttpStatus.OK);
 	}
 	@GetMapping("/getOne/{customerID}")
-	public ResponseEntity<Cart> viewOneCart(@PathVariable long customerID){
-		return new ResponseEntity<Cart>(service.getOneCart(customerID), HttpStatus.OK);
+	public ResponseEntity<List<Cart>> viewOneCart(@PathVariable long customerID){
+		List<Cart> cartL = service.getOneCart(customerID);
+		return new ResponseEntity<List<Cart>>(cartL, HttpStatus.OK);
 	}
 	@GetMapping("/TotalCartAmount/{customerID}")
-	public ResponseEntity<String> getCartAmt(@PathVariable long customerID){
+	public ResponseEntity<Double> getCartAmt(@PathVariable long customerID){
 		double amt = service.TotalCartAmount(customerID);
-		return new ResponseEntity<String>("CustomerID: "+customerID+", totalCartAmount: "+amt, HttpStatus.OK);
+		return new ResponseEntity<Double>(amt, HttpStatus.OK);
 	}
 	
-	@PostMapping("/addPlant")
-	public ResponseEntity<String> addPlantToCart(@RequestParam long customerID,long plantID,int quantity){
+	@PostMapping("/addPlant/{customerID}")
+	public ResponseEntity<String> addPlantToCart(@PathVariable long customerID, @RequestParam long plantID,int quantity){
 		service.addPlantToCart(customerID, plantID, quantity);
 		return new ResponseEntity<String>("plant added...", HttpStatus.OK);
 	}
