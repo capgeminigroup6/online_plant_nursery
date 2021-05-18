@@ -9,10 +9,9 @@ import com.cg.online_plant_nursery.utils.ListIsEmptyException;
 import com.cg.online_plant_nursery.utils.NotAuthorizedException;
 
 public interface IPlanterService {
-	public void addPlanter(long adminID,Planter planter)throws DuplicateException,NotAuthorizedException;
+	public void addPlanter(Planter planter)throws DuplicateException;
 	public List<Planter> getAllPlanters()throws ListIsEmptyException;
-	public void removePlanter(long adminID,int planterId)throws IDNotFoundException,NotAuthorizedException;
-	public void updatePlanter(long adminID,int planterId, Planter planter)throws IDNotFoundException, NotAuthorizedException;
+	public void deletePlanter(int planterId)throws IDNotFoundException;
+	public void updatePlanter(int id, Planter planter);
 	public Planter getPlanterById(int planterId)throws IDNotFoundException;
 }
-

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,19 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.online_plant_nursery.entity.Planter;
 import com.cg.online_plant_nursery.services.IPlanterService;
 
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/planter")
 public class PlanterController {
 	@Autowired
 	IPlanterService service;
 	
-	@PostMapping("/addplanter/{admin}")
-	 public ResponseEntity<String> addPlanter(@PathVariable long admin,@RequestBody Planter planter){
-	  service.addPlanter(admin,planter);
+	@PostMapping
+	 public ResponseEntity<String> addPlanter(@RequestBody Planter planter){
+	  service.addPlanter(planter);
 	  return new ResponseEntity<String>("Planter Added",HttpStatus.OK);
 	 }
 	
-	 @GetMapping("/getAll")
+	 @GetMapping
 	 public ResponseEntity<List<Planter>> getAllPlanters(){
 	  List<Planter> planterList=service.getAllPlanters();
 	  return new ResponseEntity<List<Planter>>(planterList,HttpStatus.OK);
@@ -42,15 +44,15 @@ public class PlanterController {
 	  return new ResponseEntity<Planter>(planter,HttpStatus.OK);
 	 }
 	 
-	 @DeleteMapping("/delete/{admin}")
-		public ResponseEntity<String> removePlanter(@PathVariable long admin,@RequestParam int planterId){
-			service.removePlanter(admin,planterId);
+	 @DeleteMapping("/delete/{planterId}")
+		public ResponseEntity<String> removePlanter(@PathVariable int planterId){
+			service.deletePlanter(planterId);
 			return new ResponseEntity<String>("deleted...", HttpStatus.OK);
 		}
 	 
-	 @PutMapping("/updateplanter/{admin}")
-	 public ResponseEntity<String> updatePlanter(@PathVariable long admin,@RequestParam int id,@RequestBody Planter planter){
-	  service.updatePlanter(admin,id, planter);
+	 @PutMapping("/updateplanter")
+	 public ResponseEntity<String> updatePlanter(@RequestParam int id,@RequestBody Planter planter){
+	  service.updatePlanter(id, planter);
 	  return new ResponseEntity<String>("updated",HttpStatus.OK);
 	 }
 
