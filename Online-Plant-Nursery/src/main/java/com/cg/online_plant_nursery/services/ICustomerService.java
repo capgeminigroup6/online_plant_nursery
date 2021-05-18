@@ -12,6 +12,6 @@ public interface ICustomerService {
 	public void addCustomer(Customer customer) throws DuplicateException;
 	public void removeCustomer(long customer_id) throws IDNotFoundException;
 	public void updateCustomer(long customer_id,Customer customer) throws IDNotFoundException;
-	public List<Customer> getAllCustomer(long adminID) throws ListIsEmptyException,NotAuthorizedException;
+	public List<Customer> getAllCustomer(/*long adminID*/) throws ListIsEmptyException,NotAuthorizedException;
 	public Customer getCustomerById(long customer_id) throws IDNotFoundException;
 }

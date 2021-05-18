@@ -1,6 +1,7 @@
 package com.cg.online_plant_nursery.services;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,13 @@ import com.cg.online_plant_nursery.dao.CartDAO;
 import com.cg.online_plant_nursery.dao.CustomerDAO;
 import com.cg.online_plant_nursery.entity.Cart;
 import com.cg.online_plant_nursery.entity.Customer;
+import com.cg.online_plant_nursery.entity.Admin;
 import com.cg.online_plant_nursery.utils.CustomreNotFoundException;
 import com.cg.online_plant_nursery.utils.DuplicateException;
 import com.cg.online_plant_nursery.utils.IDNotFoundException;
 import com.cg.online_plant_nursery.utils.ListIsEmptyException;
 import com.cg.online_plant_nursery.utils.NotAuthorizedException;
+
 
 @Service
 public class CustomerServiceImpl implements ICustomerService{
@@ -25,24 +28,32 @@ public class CustomerServiceImpl implements ICustomerService{
 	AdminDAO admindao;		//autowires these services with repository classes
 	@Autowired
 	CartDAO cartdao;
+	List<Admin> AdminList = new ArrayList<>();
 	List<Customer> CustomerList = new ArrayList<>();
 	List<Cart> cartList = new ArrayList<>();
 	
+	public Customer validate(String email,String password) {
+		Customer customer=dao.validate(email, password);
+		return customer;
+	}
 	@Override
 	public void addCustomer(Customer Customer) throws DuplicateException {
-		CustomerList = dao.findAll();
-		for(Customer od : CustomerList) {
-			if(od.getId() == Customer.getId()) {
-				throw new DuplicateException();		//duplication of customer not allowed
-			}
+		if(dao.getCustomerById(Customer.getId()) != null) {
+			throw new DuplicateException();	
 		}
-		dao.save(Customer);
+		else {
+			dao.save(Customer);
+		}
+		if(Customer.getRole().equals("admin")) {
+			Admin admin = new Admin();
+			admin.setId(Customer.getId());
+			admindao.save(admin);
+		}
 		Cart cart = new Cart();
 		cart.setCustomer(dao.getCustomerById(Customer.getId()));
 		cart.setTotalamount(0);
 		cartdao.save(cart);
 	}
-
 	@Override
 	public void updateCustomer(long customer_id, Customer Customer) throws CustomreNotFoundException {
 		CustomerList = dao.findAll();
@@ -64,7 +75,15 @@ public class CustomerServiceImpl implements ICustomerService{
 
 	@Override
 	public void removeCustomer(long customer_id) throws CustomreNotFoundException {
+		AdminList = admindao.findAll();
 		CustomerList = dao.findAll();
+		long adminid=0;
+		for(Admin ad : AdminList) {
+			if(ad.getCustomer().getId()==customer_id) {
+				adminid=ad.getId();
+				ad.setCustomer(null);
+			}
+		}
 		for(Customer od : CustomerList) {
 			if(od.getId() == customer_id) {
 				cartList = cartdao.findAll();
@@ -79,6 +98,7 @@ public class CustomerServiceImpl implements ICustomerService{
 						cartdao.delete(c);
 					}
 				}
+				admindao.deleteById(adminid);
 				dao.deleteById( customer_id);
 				return;
 			}
@@ -87,15 +107,15 @@ public class CustomerServiceImpl implements ICustomerService{
 	}
 
 	@Override
-	public List<Customer> getAllCustomer(long adminID) throws ListIsEmptyException, NotAuthorizedException {
+	public List<Customer> getAllCustomer() throws ListIsEmptyException, NotAuthorizedException {
 		CustomerList = dao.findAll();
-		if(admindao.existsById(adminID)) {
+		//if(admindao.existsById(adminID)) {
 			if(CustomerList.isEmpty()) {
 				throw new ListIsEmptyException();
 			}
 			return CustomerList;
-		}
-		throw new NotAuthorizedException();	//only admin have access to this 
+		//}
+		//throw new NotAuthorizedException();	//only admin have access to this 
 	}
 
 	@Override

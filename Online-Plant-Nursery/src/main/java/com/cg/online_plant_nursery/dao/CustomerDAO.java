@@ -11,5 +11,7 @@ public interface CustomerDAO extends JpaRepository<Customer, Long>{
 
 	@Query(value = "from Customer customer where customer.id=?1")
 	public Customer getCustomerById(long id);
-
+	
+	@Query(value = "from Customer customer where customer.email=?1 and customer.password=?2")
+	public Customer validate(String email, String password);
 }
