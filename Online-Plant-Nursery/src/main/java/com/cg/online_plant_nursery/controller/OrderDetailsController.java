@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.online_plant_nursery.entity.OrderDetails;
 import com.cg.online_plant_nursery.services.OrderDetailsServiceImpl;
 
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/orderDetails")
 public class OrderDetailsController {
@@ -25,8 +27,8 @@ public class OrderDetailsController {
 	OrderDetailsServiceImpl service;
 	
 	@PostMapping("/add")
-	public ResponseEntity<String> addOrderDetails(@RequestParam long customerID,String paymentOp,long orderID){
-		service.addOrderDetails(customerID,paymentOp,orderID);
+	public ResponseEntity<String> addOrderDetails(@RequestParam long customerID,String paymentOp,String shipping_address){
+		service.addOrderDetails(customerID,paymentOp,shipping_address);
 		return new ResponseEntity<String>("order added...",HttpStatus.OK);
 	}
 	
@@ -47,8 +49,8 @@ public class OrderDetailsController {
 		return new ResponseEntity<List<OrderDetails>>(service.getAllOrderDetails(adminID),HttpStatus.OK);
 	}
 	
-	@GetMapping("/getByID/{orderID}")
-	public ResponseEntity<OrderDetails> getOrderDetailsById(@PathVariable long orderID) {
-		return new ResponseEntity<OrderDetails>(service.getOrderDetailsById(orderID), HttpStatus.OK);
+	@GetMapping("/getByID/{customerID}")
+	public ResponseEntity<List<OrderDetails>> getOrderDetailsById(@PathVariable long customerID) {
+		return new ResponseEntity<List<OrderDetails>>(service.getOrderDetailsById(customerID), HttpStatus.OK);
 	}
 }
