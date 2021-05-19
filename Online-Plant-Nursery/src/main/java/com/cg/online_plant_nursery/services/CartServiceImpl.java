@@ -279,7 +279,7 @@ public class CartServiceImpl implements ICartService{
 		CartList = dao.findAll();
 		
 		for(Cart c : CartList) {
-			if(c.getCustomer().getId() == customerID && c.getPlant().getId() == plantID) {
+			if(c.getCustomer().getId() == customerID && c.getPlant()!= null && c.getPlant().getId() == plantID) {
 				c.setTotalamount(c.getTotalamount()-(plantDao.getPlantById(plantID).getPrice()*c.getPlant_quantity()));
 				c.setPlant_quantity(0);
 				dao.save(c);
@@ -294,7 +294,7 @@ public class CartServiceImpl implements ICartService{
 		CartList = dao.findAll();
 		
 		for(Cart c : CartList) {
-			if(c.getCustomer().getId() == customerID && c.getSeed().getId() == seedID) {
+			if(c.getCustomer().getId() == customerID && c.getSeed()!= null && c.getSeed().getId() == seedID) {
 				
 				c.setTotalamount(c.getTotalamount()-(seedDao.getSeedById(seedID).getPrice()*c.getSeed_quantity()));
 				c.setSeed_quantity(0);
@@ -310,7 +310,7 @@ public class CartServiceImpl implements ICartService{
 		CartList = dao.findAll();
 		
 		for(Cart c : CartList) {
-			if(c.getCustomer().getId() == customerID && c.getPlanter().getId() == planterID) {
+			if(c.getCustomer().getId() == customerID && c.getPlanter()!= null && c.getPlanter().getId() == planterID) {
 				
 				c.setTotalamount(c.getTotalamount()-(planterDao.getPlanterById(planterID).getPrice()*c.getPlanter_quantity()));
 				c.setPlanter_quantity(0);
@@ -326,7 +326,7 @@ public class CartServiceImpl implements ICartService{
 		CartList = dao.findAll();
 		
 		for(Cart c : CartList) {
-			if(c.getCustomer().getId() == customerID && c.getGardendecor().getId() == gardenDecorID) {
+			if(c.getCustomer().getId() == customerID && c.getGardendecor() != null && c.getGardendecor().getId() == gardenDecorID) {
 				
 				c.setTotalamount(c.getTotalamount()-(gardenDecorDao.getDecorById(gardenDecorID).getPrice()*c.getGarden_decor_quantity()));
 				c.setGarden_decor_quantity(0);
@@ -342,7 +342,7 @@ public class CartServiceImpl implements ICartService{
 		CartList = dao.findAll();
 		
 		for(Cart c : CartList) {
-			if(c.getCustomer().getId() == customerID && c.getFertilizer().getId() == fertilizerID) {
+			if(c.getCustomer().getId() == customerID && c.getFertilizer()!= null && c.getFertilizer().getId() == fertilizerID) {
 				
 				c.setTotalamount(c.getTotalamount()-(fertilizerDao.getFertilizerById(fertilizerID).getPrice()*c.getFertlizer_quantity()));
 				c.setFertlizer_quantity(0);
@@ -358,7 +358,7 @@ public class CartServiceImpl implements ICartService{
 		CartList = dao.findAll();
 		
 		for(Cart c : CartList) {	
-			if(c.getCustomer().getId() == customerID && c.getPlant().getId() == plantID) {
+			if(c.getCustomer().getId() == customerID && c.getPlant()!= null && c.getPlant().getId() == plantID) {
 				c.setTotalamount(c.getTotalamount()-(plantDao.getPlantById(plantID).getPrice()*c.getPlant_quantity()));//remove the price with the previous quantity
 				c.setTotalamount(c.getTotalamount()+(plantDao.getPlantById(plantID).getPrice()*quantity));//update the price with new quantity
 				c.setPlant_quantity(quantity);
@@ -374,7 +374,7 @@ public class CartServiceImpl implements ICartService{
 		CartList = dao.findAll();
 		
 		for(Cart c : CartList) {
-			if(c.getCustomer().getId() == customerID && c.getSeed().getId() == seedID) {
+			if(c.getCustomer().getId() == customerID && c.getSeed()!= null && c.getSeed().getId() == seedID) {
 				c.setTotalamount(c.getTotalamount()-(seedDao.getSeedById(seedID).getPrice()*c.getSeed_quantity()));
 				c.setTotalamount(c.getTotalamount()+(seedDao.getSeedById(seedID).getPrice()*quantity));
 				c.setSeed_quantity(quantity);
@@ -390,7 +390,7 @@ public class CartServiceImpl implements ICartService{
 		CartList = dao.findAll();
 		
 		for(Cart c : CartList) {
-			if(c.getCustomer().getId() == customerID && c.getPlanter().getId() == planterID) {
+			if(c.getCustomer().getId() == customerID && c.getPlanter()!= null && c.getPlanter().getId() == planterID) {
 				c.setTotalamount(c.getTotalamount()-(planterDao.getPlanterById(planterID).getPrice()*c.getPlanter_quantity()));
 				c.setTotalamount(c.getTotalamount()+(planterDao.getPlanterById(planterID).getPrice()*quantity));
 				c.setPlanter_quantity(quantity);
@@ -406,7 +406,7 @@ public class CartServiceImpl implements ICartService{
 		CartList = dao.findAll();
 		
 		for(Cart c : CartList) {
-			if(c.getCustomer().getId() == customerID && c.getGardendecor().getId() == gardenDecorID) {
+			if(c.getCustomer().getId() == customerID && c.getGardendecor()!= null && c.getGardendecor().getId() == gardenDecorID) {
 				c.setTotalamount(c.getTotalamount()-(gardenDecorDao.getDecorById(gardenDecorID).getPrice()*c.getGarden_decor_quantity()));
 				c.setTotalamount(c.getTotalamount()+(gardenDecorDao.getDecorById(gardenDecorID).getPrice()*quantity));
 				c.setGarden_decor_quantity(quantity);
@@ -422,7 +422,7 @@ public class CartServiceImpl implements ICartService{
 		CartList = dao.findAll();
 		
 		for(Cart c : CartList) {
-			if(c.getCustomer().getId() == customerID && c.getFertilizer().getId() == fertilizerID) {
+			if(c.getCustomer().getId() == customerID && c.getFertilizer()!= null && c.getFertilizer().getId() == fertilizerID) {
 				c.setTotalamount(c.getTotalamount()-(fertilizerDao.getFertilizerById(fertilizerID).getPrice()*c.getFertlizer_quantity()));
 				c.setTotalamount(c.getTotalamount()+(fertilizerDao.getFertilizerById(fertilizerID).getPrice()*quantity));
 				c.setFertlizer_quantity(quantity);
