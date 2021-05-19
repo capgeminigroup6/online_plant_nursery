@@ -9,9 +9,9 @@ import com.cg.online_plant_nursery.utils.ListIsEmptyException;
 import com.cg.online_plant_nursery.utils.NotAuthorizedException;
 
 public interface IGardenDecorService {
-	public void addDecor(long adminID,GardenDecor decor)throws DuplicateException,NotAuthorizedException;
+	public void addDecor(GardenDecor decor)throws DuplicateException;
 	public List<GardenDecor> getAllDecors()throws ListIsEmptyException;
-	public void removeDecor(long adminID,int DecorId)throws IDNotFoundException,NotAuthorizedException;
-	public void updateGardenDecor(long adminID,int DecorId, GardenDecor decor)throws IDNotFoundException,NotAuthorizedException;
+	public void removeDecor(int DecorId);
+	public void updateGardenDecor(int DecorId, GardenDecor decor)throws IDNotFoundException;
 	public GardenDecor getDecorById(int DecorId)throws IDNotFoundException;
 }

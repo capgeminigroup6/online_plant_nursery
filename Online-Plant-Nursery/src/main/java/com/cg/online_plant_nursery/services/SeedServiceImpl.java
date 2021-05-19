@@ -23,9 +23,9 @@ public class SeedServiceImpl implements ISeedService {
 	
 	List<Seed> seedList = new ArrayList<>();
 	@Override
-	public void addSeed(long adminID,Seed seed) throws DuplicateException,NotAuthorizedException  {
+	public void addSeed(Seed seed) throws DuplicateException {
 		seedList = dao.findAll();
-		if(admindao.existsById(adminID)) {
+
 			for(Seed sd: seedList) {
 				if(sd.getId() ==seed.getId()){
 					throw new DuplicateException();
@@ -34,38 +34,35 @@ public class SeedServiceImpl implements ISeedService {
 			dao.save(seed);
 			return;
 		}
-		throw new NotAuthorizedException();
-			}
+		
 	
 	@Override
 	public List<Seed> getAllSeeds() throws ListIsEmptyException {
 		 seedList=dao.findAll();
-		 if(seedList.isEmpty()) {
+		 if(seedList == null) {
 				throw new ListIsEmptyException();
 			}
 			return seedList;
 	}
 	@Override
-	public void removeSeed(long adminID,int Id) throws IDNotFoundException,NotAuthorizedException {
+	public void removeSeed(int Id)  {
 		seedList = dao.findAll();
-		if(admindao.existsById(adminID)) {
+		
 			for(Seed sd: seedList) {
 				if(sd.getId()==Id) {
 					 dao.deleteById((long) Id);
 					 return;
 				}
 			}
-			throw new IDNotFoundException();
 		}
-		throw new NotAuthorizedException();
-			 		}
+		
 		@Override
-	public void updateSeed(long adminID,int Id, Seed seed)  throws IDNotFoundException,NotAuthorizedException {
+	public void updateSeed(int id, Seed seed)  throws IDNotFoundException {
 		seedList = dao.findAll();
-		if(admindao.existsById(adminID)) {
+
 			for(Seed sd: seedList) {
-				if(sd.getId()==Id) {
-					Seed seed1=dao.getSeedById(Id);
+				if(sd.getId()==id) {
+					Seed seed1=dao.findById((long) id).get();
 				      seed1.setId(seed.getId());
 				      seed1.setName(seed.getName());
 				      seed1.setSeedsperpacket(seed.getSeedsperpacket());
@@ -78,8 +75,7 @@ public class SeedServiceImpl implements ISeedService {
 			}
 			 throw new IDNotFoundException();
 		}
-		throw new NotAuthorizedException();
-		}
+	
 		
 		@Override
 	public Seed getSeedById(int Id) throws IDNotFoundException {

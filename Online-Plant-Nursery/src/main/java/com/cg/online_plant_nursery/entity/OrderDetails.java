@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class OrderDetails {
 //Columns inside the table
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long OrderId;
 //This customerid column references to customer.id with a OneToOne type relation	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -21,17 +22,24 @@ public class OrderDetails {
 	private double Amount;
 	@Column
 	private LocalDateTime date;
+	@Column
+	private String shipping_address;
+	
 //Constructors
 	public OrderDetails() {
 	}
-	public OrderDetails(long orderId, Customer customer, String paymentOption, double amount, LocalDateTime date) {
-		super();
-		OrderId = orderId;
-		this.customer = customer;
-		PaymentOption = paymentOption;
-		Amount = amount;
-		this.date = date;
-	}
+	
+public OrderDetails(long orderId, Customer customer, String paymentOption, double amount, LocalDateTime date,
+		String shipping_address) {
+	super();
+	OrderId = orderId;
+	this.customer = customer;
+	PaymentOption = paymentOption;
+	Amount = amount;
+	this.date = date;
+	this.shipping_address = shipping_address;
+}
+
 //Required getters and setters
 	public long getOrderId() {
 		return OrderId;
@@ -63,12 +71,19 @@ public class OrderDetails {
 	public void setDate(LocalDateTime localDateTime) {
 		this.date = localDateTime;
 	}
-//To display the contents
+	
+public String getShipping_address() {
+		return shipping_address;
+	}
+
+	public void setShipping_address(String shipping_address) {
+		this.shipping_address = shipping_address;
+	}
+	//To display the contents
 	@Override
 	public String toString() {
 		return "OrderDetails [OrderId=" + OrderId + ", customer=" + customer + ", PaymentOption=" + PaymentOption
-				+ ", Amount=" + Amount + ", date=" + date + "]";
+				+ ", Amount=" + Amount + ", date=" + date + ", shipping_address=" + shipping_address + "]";
 	}
-
 	
 }

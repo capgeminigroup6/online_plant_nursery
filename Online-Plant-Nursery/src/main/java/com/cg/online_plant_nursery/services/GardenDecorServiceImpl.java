@@ -17,15 +17,14 @@ import com.cg.online_plant_nursery.utils.NotAuthorizedException;
 @Service
 public class GardenDecorServiceImpl implements IGardenDecorService{
 	@Autowired
-	GardenDecorDAO dao;
+  GardenDecorDAO dao;
 	@Autowired
 	AdminDAO adminDAO;
 	
 	List<GardenDecor> decorList = new ArrayList<>();
 	@Override
-	public void addDecor(long adminID,GardenDecor decor) throws DuplicateException ,NotAuthorizedException{
+	public void addDecor(GardenDecor decor) throws DuplicateException {
 	    decorList = dao.findAll();
-	    if(adminDAO.existsById(adminID)) {
 	    	for(GardenDecor gd: decorList) {
 				if(gd.getId() ==decor.getId()){
 					throw new DuplicateException();
@@ -34,38 +33,34 @@ public class GardenDecorServiceImpl implements IGardenDecorService{
 			dao.save(decor);
 			return;
 	    }
-		throw new NotAuthorizedException();
-			}
 	
 	@Override
 	public List<GardenDecor> getAllDecors() throws ListIsEmptyException {
 		 decorList=dao.findAll();
-		 if(decorList.isEmpty()) {
+		 if(decorList == null) {
 				throw new ListIsEmptyException();
 			}
 			return decorList;
 	}
 	@Override
-	public void removeDecor(long adminID,int Id) throws IDNotFoundException,NotAuthorizedException{
+	public void removeDecor(int Id) {
 		decorList = dao.findAll();
-		 if(adminDAO.existsById(adminID)) {
 			 for(GardenDecor gd: decorList) {
 					if(gd.getId()==Id) {
 						 dao.deleteById((long) Id);
 						 return;
 					}
 				}
-				throw new IDNotFoundException();
-		 }
-		 throw new NotAuthorizedException();
+				
+
 			 		}
 		@Override
-	public void updateGardenDecor(long adminID,int Id, GardenDecor decor)  throws IDNotFoundException,NotAuthorizedException{
+	public void updateGardenDecor(int Id, GardenDecor decor)  throws IDNotFoundException{
 		decorList = dao.findAll();
-		if(adminDAO.existsById(adminID)) {
+	
 			for(GardenDecor gd: decorList) {
 				if(gd.getId()==Id) {
-					GardenDecor decor1=dao.getDecorById(Id);
+					GardenDecor decor1=dao.findById((long) Id).get();
 				     decor1.setId(decor.getId());
 				     decor1.setName(decor.getName());
 				     decor1.setPrice(decor.getPrice());
@@ -77,8 +72,7 @@ public class GardenDecorServiceImpl implements IGardenDecorService{
 			}
 			 throw new IDNotFoundException();
 		}
-		throw new NotAuthorizedException();
-		}
+		
 		@Override
 	public GardenDecor getDecorById(int Id) throws IDNotFoundException {
 		decorList = dao.findAll();

@@ -3,6 +3,7 @@ package com.cg.online_plant_nursery.services;
 import java.util.List;
 
 import com.cg.online_plant_nursery.entity.Cart;
+import com.cg.online_plant_nursery.entity.UserCart;
 import com.cg.online_plant_nursery.utils.IDNotFoundException;
 import com.cg.online_plant_nursery.utils.ListIsEmptyException;
 import com.cg.online_plant_nursery.utils.NotAuthorizedException;
@@ -27,7 +28,7 @@ public interface ICartService {
 	public void updateGardenDecorQuantity(long customerID,long gardenDecorID, int quantity) throws IDNotFoundException;
 	public void updateFertilizerQuantity(long customerID,long fertilizerID, int quantity) throws IDNotFoundException;
 	
-	public Cart getOneCart(long customerID) throws IDNotFoundException;
+	public List<Cart> getOneCart(long customerID) throws IDNotFoundException;
 	public List<Cart> viewCart(long adminID) throws ListIsEmptyException,NotAuthorizedException;
 	public double TotalCartAmount(long customerID) throws IDNotFoundException;
 	

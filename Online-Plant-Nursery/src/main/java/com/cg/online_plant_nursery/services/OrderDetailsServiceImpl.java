@@ -38,7 +38,7 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 
 	 
 	@Override
-	public void addOrderDetails(long customerID,String paymentOp,long orderID) throws DuplicateOrderException,CustomreNotFoundException,InsufficiantBalanceException {
+	public void addOrderDetails(long customerID,String paymentOp,String shipping_address) throws DuplicateOrderException,CustomreNotFoundException,InsufficiantBalanceException {
 		orderDetailsList = dao.findAll();
 		cartList = cartDao.findAll();
 		boolean flag = false;
@@ -54,14 +54,15 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 				}
 			}
 			
-			if(customer1.getTotalamount() >= amt) {			//checks if customer has sufficient balance 
-				double custamt = customer1.getTotalamount();
-				custamt = custamt - amt;
-				customer1.setTotalamount(custamt);			//updates the customer wallet amount after buy 
-				customerdao.save(customer1);
-				odr.setOrderId(orderID);
+				if(paymentOp.equals("Account Wallet")) {
+					double custamt = customer1.getTotalamount();
+					custamt = custamt - amt;
+					customer1.setTotalamount(custamt);			//updates the customer wallet amount after buy 
+					customerdao.save(customer1);
+				}
 				odr.setCustomer(customer1);
 				odr.setDate(java.time.LocalDateTime.now());
+				odr.setShipping_address(shipping_address);
 				odr.setPaymentOption(paymentOp);			//create new order details
 				odr.setAmount(amt);
 				dao.save(odr);
@@ -86,9 +87,6 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 					}
 				}
 				return;
-			}
-			throw new InsufficiantBalanceException();
-			
 		}
 		throw new CustomreNotFoundException();
 	}
@@ -119,15 +117,18 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 	@Override
 	public void deleteOrderDetails(long OrderId) throws OrderDetailsNotFoundException {
 		orderDetailsList = dao.findAll();
-		Customer customer1 = customerdao.getCustomerById(OrderId);
+		OrderDetails order = dao.getOrderDetailsById(OrderId);
+		Customer customer1 = customerdao.getCustomerById(order.getCustomer().getId());
 		
 		for(OrderDetails od : orderDetailsList) {
 			if(od.getOrderId() == OrderId) {
-				customer1.setTotalamount(customer1.getTotalamount()+od.getAmount());		//refund the amount
-				customerdao.save(customer1);
+				if(order.getPaymentOption().equals("Account Wallet")) {
+					customer1.setTotalamount(customer1.getTotalamount() + od.getAmount());		//refund the amount
+					customerdao.save(customer1);
+				}
 				od.setCustomer(null);
 				dao.save(od);
-				dao.deleteById( OrderId);
+				dao.deleteById(OrderId);
 				return;
 			}
 		}
@@ -147,14 +148,14 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 	}
 
 	@Override
-	public OrderDetails getOrderDetailsById(long OrderId) throws OrderDetailsNotFoundException {
+	public List<OrderDetails> getOrderDetailsById(long customerID) throws OrderDetailsNotFoundException {
 		orderDetailsList = dao.findAll();
+		List<OrderDetails> orderList = new ArrayList<>();
 		for(OrderDetails od : orderDetailsList) {
-			if(od.getOrderId() == OrderId) {
-				return od;
-			}
+			if(od.getCustomer().getId() == customerID) {
+				orderList.add(od);			}
 		}
-		throw new OrderDetailsNotFoundException();		//order not found
+		return orderList;
 	}
 
 
