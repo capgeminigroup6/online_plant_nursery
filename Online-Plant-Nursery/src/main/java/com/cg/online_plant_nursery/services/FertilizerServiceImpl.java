@@ -23,9 +23,9 @@ public class FertilizerServiceImpl implements IFertilizerService{
 	List<Fertilizer> fertilizerList = new ArrayList<>();
 
 	@Override
-	public void addFertilizer(long adminID,Fertilizer fertilizer) throws DuplicateException,NotAuthorizedException{
+	public void addFertilizer(Fertilizer fertilizer) throws DuplicateException{
 		fertilizerList = dao.findAll();
-		if(adminDAO.existsById(adminID)) {
+
 			for(Fertilizer  fl: fertilizerList) {
 				if(fl.getId() ==fertilizer.getId()){
 					throw new DuplicateException();
@@ -33,8 +33,7 @@ public class FertilizerServiceImpl implements IFertilizerService{
 			}
 			dao.save(fertilizer);
 			return;
-		}
-		throw new NotAuthorizedException();
+	
 			}
 
 	@Override
@@ -48,9 +47,9 @@ public class FertilizerServiceImpl implements IFertilizerService{
 	}
 
 	@Override
-	public void removeFertilizer(long adminID,int FertilizerId)throws IDNotFoundException,NotAuthorizedException {
+	public void removeFertilizer(int FertilizerId)throws IDNotFoundException {
 		fertilizerList = dao.findAll();
-		if(adminDAO.existsById(adminID)) {
+	
 			for(Fertilizer fl: fertilizerList) {
 				if(fl.getId()==FertilizerId) {
 					 dao.deleteById((long) FertilizerId);
@@ -60,13 +59,13 @@ public class FertilizerServiceImpl implements IFertilizerService{
 			throw new IDNotFoundException();
 		}
 		
-		throw new NotAuthorizedException();
-	}
+	
+	
 
 	@Override
-	public void updateFertilizer(long adminID,int FertilizerId, Fertilizer fertilizer)throws IDNotFoundException,NotAuthorizedException {
+	public void updateFertilizer(int FertilizerId, Fertilizer fertilizer) {
 		fertilizerList = dao.findAll();
-		if(adminDAO.existsById(adminID)) {
+		
 			for(Fertilizer fl: fertilizerList) {
 				if(fl.getId()==FertilizerId) {
 				   Fertilizer fertilizer1=dao.getFertilizerById(FertilizerId);
@@ -82,8 +81,7 @@ public class FertilizerServiceImpl implements IFertilizerService{
 			}
 			 throw new IDNotFoundException();
 		}
-		throw new NotAuthorizedException();
-	}
+
 	
 	@Override
 	public Fertilizer getFertilizerById(int FertilizerId) throws IDNotFoundException{
@@ -99,3 +97,4 @@ public class FertilizerServiceImpl implements IFertilizerService{
 	
 
 }
+
