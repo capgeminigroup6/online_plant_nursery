@@ -49,7 +49,6 @@ public class CustomerServiceImpl implements ICustomerService{
 				admindao.save(admin1);
 			}
 			
-			
 		}
 		Cart cart = new Cart();
 		cart.setCustomer(dao.getCustomerById(Customer.getId()));

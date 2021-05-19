@@ -73,7 +73,7 @@ public void removeAdmin(/*long adminID,*/long admin_id) throws IDNotFoundExcepti
 			dao.deleteById(adminid);
 			customerdao.deleteById( customerid);
 			return;
-		}
+	   }
 	}
 		throw new IDNotFoundException();  //if the ID value not found in the database
 	//}
