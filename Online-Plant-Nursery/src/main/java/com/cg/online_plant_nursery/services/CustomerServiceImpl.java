@@ -38,16 +38,18 @@ public class CustomerServiceImpl implements ICustomerService{
 	}
 	@Override
 	public void addCustomer(Customer Customer) throws DuplicateException {
+		Admin admin1= new Admin();
 		if(dao.getCustomerById(Customer.getId()) != null) {
 			throw new DuplicateException();	
 		}
 		else {
 			dao.save(Customer);
-		}
-		if(Customer.getRole().equals("admin")) {
-			Admin admin = new Admin();
-			admin.setId(Customer.getId());
-			admindao.save(admin);
+			if(Customer.getRole().equals("admin")) {
+				admin1.setCustomer(dao.getCustomerById(Customer.getId()));
+				admindao.save(admin1);
+			}
+			
+			
 		}
 		Cart cart = new Cart();
 		cart.setCustomer(dao.getCustomerById(Customer.getId()));
@@ -77,13 +79,6 @@ public class CustomerServiceImpl implements ICustomerService{
 	public void removeCustomer(long customer_id) throws CustomreNotFoundException {
 		AdminList = admindao.findAll();
 		CustomerList = dao.findAll();
-		long adminid=0;
-		for(Admin ad : AdminList) {
-			if(ad.getCustomer().getId()==customer_id) {
-				adminid=ad.getId();
-				ad.setCustomer(null);
-			}
-		}
 		for(Customer od : CustomerList) {
 			if(od.getId() == customer_id) {
 				cartList = cartdao.findAll();
@@ -98,7 +93,7 @@ public class CustomerServiceImpl implements ICustomerService{
 						cartdao.delete(c);
 					}
 				}
-				admindao.deleteById(adminid);
+				
 				dao.deleteById( customer_id);
 				return;
 			}

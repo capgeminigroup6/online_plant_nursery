@@ -46,9 +46,12 @@ public void removeAdmin(/*long adminID,*/long admin_id) throws IDNotFoundExcepti
 	AdminList = dao.findAll();
 	CustomerList = customerdao.findAll();
 	long customerid=0;
+	long adminid=0;
+
 	for(Admin ad : AdminList) {
-		if(ad.getId()==admin_id) {
-			customerid=ad.getId();
+		if(ad.getCustomer()!=null && ad.getCustomer().getId()==admin_id) {
+			customerid=ad.getCustomer().getId();
+			adminid=ad.getId();
 			ad.setCustomer(null);
 			//ad.setId(0);
 		}
@@ -67,7 +70,7 @@ public void removeAdmin(/*long adminID,*/long admin_id) throws IDNotFoundExcepti
 					cartdao.delete(c);
 				}
 			}
-			dao.deleteById(admin_id);
+			dao.deleteById(adminid);
 			customerdao.deleteById( customerid);
 			return;
 		}
