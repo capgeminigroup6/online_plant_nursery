@@ -49,6 +49,7 @@ public class CustomerServiceImpl implements ICustomerService{
 				admindao.save(admin1);
 			}
 			
+			
 		}
 		Cart cart = new Cart();
 		cart.setCustomer(dao.getCustomerById(Customer.getId()));
@@ -93,7 +94,7 @@ public class CustomerServiceImpl implements ICustomerService{
 					}
 				}
 				
-				dao.deleteById( customer_id);
+				//dao.deleteById( customer_id);
 				return;
 			}
 		}
