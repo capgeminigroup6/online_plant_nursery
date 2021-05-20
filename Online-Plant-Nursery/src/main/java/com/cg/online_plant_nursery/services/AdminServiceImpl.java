@@ -71,7 +71,7 @@ public void removeAdmin(/*long adminID,*/long admin_id) throws IDNotFoundExcepti
 				}
 			}
 			dao.deleteById(adminid);
-			//customerdao.deleteById( customerid);
+		 //customerdao.deleteById( customerid);
 			return;
 		}
 	}
